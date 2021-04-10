@@ -66,6 +66,7 @@ dependencies {
     implementation(project(AppModules.moduleNavigation))
 
     implementation(Libs.AndroidX.cardView)
+    implementation(Libs.swiperefresh)
     implementation(Libs.AndroidX.constraintlayout)
 
     implementation(Libs.AndroidX.Lifecycle.livedata)
@@ -78,4 +79,14 @@ dependencies {
     //Hilt
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.hiltCompilerAndroid)
+
+    testImplementation(Libs.TestDependencies.AndroidXTest.truth)
+    testImplementation(Libs.TestDependencies.core)
+    testImplementation(Libs.OkHttp.mockWebServer)
+    testImplementation(Libs.TestDependencies.jUnit)
+    testImplementation(Libs.TestDependencies.Mockk.unitTest)
+
+    testImplementation(Libs.Coroutines.coroutineTest) {
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
+    }
 }

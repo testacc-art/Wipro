@@ -50,7 +50,7 @@ object Libs {
     const val facebook = "com.facebook.android:facebook-login:6.1.0"
     const val countryPicker = "com.hbb20:ccp:2.3.8"
     const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:2.1.1"
-    const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01"
+    const val swiperefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     object Coil {
         private const val version = "1.1.1"
