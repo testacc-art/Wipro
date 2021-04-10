@@ -64,11 +64,9 @@ android {
 }
 
 dependencies {
+    implementation(project(AppModules.moduleBaseAndroid))
     implementation(Libs.Kotlin.stdlib)
 
-    implementation(Libs.Google.materialWidget)
-    implementation(Libs.AndroidX.coreKtx)
-    implementation(Libs.AndroidX.appcompat)
     implementation(Libs.AndroidX.constraintlayout)
 
     kapt(Libs.AndroidX.Lifecycle.compiler)
