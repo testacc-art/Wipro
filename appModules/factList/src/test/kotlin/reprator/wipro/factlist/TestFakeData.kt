@@ -20,4 +20,16 @@ object TestFakeData {
         val rowList = listOf(FactModals(ITEM_TITLE, ITEM_DESCRIPTION, ITEM_URL))
         return Pair(TITLE, rowList);
     }
+
+    fun getFakeManipulatedUIItem(): FactModals {
+        return FactModals(ITEM_TITLE, ITEM_DESCRIPTION, ITEM_URL)
+    }
+
+    fun getFakeManipulatedUIListItem(): List<FactModals> {
+        return listOf(FactModals(ITEM_TITLE, ITEM_DESCRIPTION, ITEM_URL))
+    }
+
+    fun getFakeManipulatedUITitle(): String {
+        return TITLE
+    }
 }
