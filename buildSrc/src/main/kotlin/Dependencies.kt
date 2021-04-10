@@ -21,6 +21,7 @@ object AppVersion {
 
 object AppModules {
     const val moduleApp = ":app"
+    const val moduleBaseAndroid = ":base-android"
 }
 
 object Libs {
