@@ -64,8 +64,8 @@ android {
 }
 
 dependencies {
+    implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
-    implementation(Libs.Kotlin.stdlib)
 
     implementation(Libs.AndroidX.constraintlayout)
 
