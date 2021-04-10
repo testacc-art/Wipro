@@ -9,7 +9,7 @@ class FactListMapper @Inject constructor() :
     Mapper<FactListEntity, Pair<String, List<FactModals>>> {
     override suspend fun map(from: FactListEntity): Pair<String, List<FactModals>> {
         return Pair(from.title, from.rows.map {
-            FactModals(it.title, it.description, it.imageHref ?: "")
+            FactModals(it.title ?: "", it.description ?: "", it.imageHref ?: "")
         })
     }
 }

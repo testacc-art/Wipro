@@ -12,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 )
 class Row(
     @JsonProperty("title")
-    val title: String,
+    val title: String?,
     @JsonProperty("description")
-    val description: String,
+    val description: String?,
     @JsonProperty("imageHref")
     val imageHref: String?
 )
