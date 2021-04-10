@@ -67,6 +67,8 @@ dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
 
+    implementation(project(AppModules.moduleFactList))
+
     implementation(Libs.AndroidX.constraintlayout)
 
     kapt(Libs.AndroidX.Lifecycle.compiler)

@@ -23,6 +23,8 @@ object AppModules {
     const val moduleApp = ":app"
     const val moduleBaseAndroid = ":base-android"
     const val moduleBaseJava = ":base"
+
+    const val moduleFactList = ":appModules:factList"
 }
 
 object Libs {

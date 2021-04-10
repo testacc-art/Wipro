@@ -1,3 +1,4 @@
+include(":appModules:factList")
 include(
     ":app",
     ":base-android",
