@@ -6,5 +6,5 @@ import reprator.wipro.factlist.modals.FactModals
 
 interface FactListRepository {
     suspend fun getFactListRepository():
-            Flow<AppResult<List<FactModals>>>
+            Flow<AppResult<Pair<String, List<FactModals>>>>
 }

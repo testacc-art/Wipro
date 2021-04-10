@@ -9,7 +9,7 @@ import javax.inject.Inject
 class FactListUseCase @Inject constructor(
     private val factListRepository: FactListRepository
 ) {
-    suspend operator fun invoke(): Flow<AppResult<List<FactModals>>> {
+    suspend operator fun invoke(): Flow<AppResult<Pair<String, List<FactModals>>>> {
         return factListRepository.getFactListRepository()
     }
 }

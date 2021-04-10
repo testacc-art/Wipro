@@ -4,5 +4,5 @@ import reprator.wipro.base.useCases.AppResult
 import reprator.wipro.factlist.modals.FactModals
 
 interface FactListRemoteDataSource {
-    suspend fun getFacListRemoteDataSource(): AppResult<List<FactModals>>
+    suspend fun getFacListRemoteDataSource(): AppResult<Pair<String, List<FactModals>>>
 }

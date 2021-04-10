@@ -19,7 +19,7 @@ class FactListDataRepositoryImpl @Inject constructor(
         private const val NO_INTERNET = "No internet connection detected."
     }
 
-    override suspend fun getFactListRepository(): Flow<AppResult<List<FactModals>>> {
+    override suspend fun getFactListRepository(): Flow<AppResult<Pair<String, List<FactModals>>>> {
         return if (connectionDetector.isInternetAvailable)
             flowOf(factListRemoteDataSource.getFacListRemoteDataSource())
         else {
