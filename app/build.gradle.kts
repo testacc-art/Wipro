@@ -66,6 +66,7 @@ android {
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
+    implementation(project(AppModules.moduleNavigation))
 
     implementation(project(AppModules.moduleFactList))
 

@@ -63,6 +63,7 @@ android {
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
+    implementation(project(AppModules.moduleNavigation))
 
     implementation(Libs.AndroidX.cardView)
     implementation(Libs.AndroidX.constraintlayout)

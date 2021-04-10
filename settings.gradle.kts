@@ -2,7 +2,8 @@ include(":appModules:factList")
 include(
     ":app",
     ":base-android",
-    ":base"
+    ":base",
+    ":navigation"
 )
 
 rootProject.buildFileName = "build.gradle.kts"
