@@ -84,6 +84,9 @@ dependencies {
     testImplementation(Libs.TestDependencies.core)
     testImplementation(Libs.OkHttp.mockWebServer)
     testImplementation(Libs.TestDependencies.jUnit)
+    testImplementation(Libs.TestDependencies.AndroidXTest.junit)
+    testImplementation(Libs.TestDependencies.AndroidXTest.rules)
+    testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
     testImplementation(Libs.Coroutines.coroutineTest) {
