@@ -13,9 +13,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import reprator.wipro.base.useCases.AppError
 import reprator.wipro.base.useCases.AppSuccess
 import reprator.wipro.factlist.TestFakeData.getFakeManipulatedRemoteDataList
-import reprator.wipro.factlist.TestFakeData.getFakeManipulatedUIItem
 import reprator.wipro.factlist.TestFakeData.getFakeManipulatedUIListItem
 import reprator.wipro.factlist.TestFakeData.getFakeManipulatedUITitle
 import reprator.wipro.factlist.TestFakeData.getFakeRemoteDataList
@@ -24,7 +24,6 @@ import reprator.wipro.factlist.datasource.remote.remotemapper.FactListMapper
 import reprator.wipro.factlist.util.MainCoroutineRule
 import retrofit2.HttpException
 import retrofit2.Response
-import java.net.UnknownHostException
 
 @RunWith(JUnit4::class)
 class FactListRemoteDataSourceImplTest {
@@ -81,4 +80,17 @@ class FactListRemoteDataSourceImplTest {
         }
     }
 
+
+    @Test
+    fun `fetch list failed with errorBody`() = coroutinesTestRule.runBlockingTest {
+
+        coEvery {
+            factListApiService.factList()
+        } returns Response.error(404, mockk(relaxed = true))
+
+        val resp =  factListRemoteDataSource.getFacListRemoteDataSource()
+
+        Truth.assertThat(resp).isInstanceOf(AppError::class.java)
+        Truth.assertThat((resp as AppError).throwable).isInstanceOf(HttpException::class.java)
+    }
 }
