@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import reprator.wipro.base.useCases.AppError
 import reprator.wipro.base.useCases.AppSuccess
 import reprator.wipro.base_android.util.event.Event
 import reprator.wipro.factlist.TestFakeData.getFakeManipulatedRemoteDataList
@@ -137,6 +138,35 @@ class FactListViewModalTest {
 
         Truth.assertThat(listSuccess).isNotEmpty()
         Truth.assertThat(listSuccess).hasSize(output.second.size)
+        Truth.assertThat(listRefreshError).isEmpty()
+        Truth.assertThat(listRefreshLoader).isEmpty()
+    }
+
+    @Test
+    fun `get factList fetch failed on launch`() = coroutinesTestRule.runBlockingTest {
+
+        val output = "An error occurred"
+
+        coEvery {
+            factListUseCase()
+        } returns flowOf(AppError(message = output))
+
+        viewModal.getFactList()
+
+        verifySequence {
+            observerLoad.onChanged(any())               //Default Initialization
+            observerError.onChanged(any())              //Default Initialization
+            observerSuccessList.onChanged(any())        //Default Initialization
+            observerLoad.onChanged(any())
+            observerError.onChanged(any())
+            observerLoad.onChanged(any())
+        }
+
+        Truth.assertThat(listSuccess).isEmpty()
+        Truth.assertThat(listLoader).isNotEmpty()
+        Truth.assertThat(listLoader).hasSize(2)
+        Truth.assertThat(listError[0]).isEqualTo(output)
+
         Truth.assertThat(listRefreshError).isEmpty()
         Truth.assertThat(listRefreshLoader).isEmpty()
     }
