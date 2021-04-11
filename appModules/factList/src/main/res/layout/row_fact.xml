@@ -14,8 +14,10 @@
         android:id="@+id/catRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/item_corner_radius"
         app:cardElevation="@dimen/item_elevation"
+        app:contentPadding="@dimen/item_content_padding"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,10 +40,8 @@
             <ImageView
                 android:id="@+id/factImage"
                 imageUrl="@{factModal.url}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="@dimen/item_image_width"
-                android:minHeight="@dimen/item_image_height"
+                android:layout_width="@dimen/item_image_width"
+                android:layout_height="@dimen/item_image_height"
                 tools:src="@tools:sample/avatars"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +60,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="@dimen/item_match_constraint"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="@{factModal.description}"
                 tools:text="@sample/factlist.json/rows/description"
                 app:layout_constraintEnd_toStartOf="@+id/barrier"
