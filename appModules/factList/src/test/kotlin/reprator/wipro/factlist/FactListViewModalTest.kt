@@ -128,6 +128,7 @@ class FactListViewModalTest {
 
         verifySequence {
             observerLoad.onChanged(any())               //Default Initialization
+            observerError.onChanged(any())              //Default Initialization
             observerSuccessList.onChanged(any())        //Default Initialization
             observerLoad.onChanged(any())
             observerSuccessList.onChanged(any())
@@ -136,5 +137,7 @@ class FactListViewModalTest {
 
         Truth.assertThat(listSuccess).isNotEmpty()
         Truth.assertThat(listSuccess).hasSize(output.second.size)
+        Truth.assertThat(listRefreshError).isEmpty()
+        Truth.assertThat(listRefreshLoader).isEmpty()
     }
 }
