@@ -22,11 +22,11 @@ class FactListViewModal @Inject constructor(
     private val factListUseCase: FactListUseCase
 ) : ViewModel() {
 
-    private val _isLoadingForeCast = MutableLiveData(true)
-    val isLoadingForeCast: LiveData<Boolean> = _isLoadingForeCast
+    private val _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _errorMsgForeCast = MutableLiveData("")
-    val errorMsgForeCast: LiveData<String> = _errorMsgForeCast
+    private val _errorMsg = MutableLiveData("")
+    val errorMsg: LiveData<String> = _errorMsg
 
     private val _title = MutableLiveData<String?>()
     val title: LiveData<String?> = _title
@@ -38,11 +38,11 @@ class FactListViewModal @Inject constructor(
         computationalBlock {
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
-                    _errorMsgForeCast.value = e.localizedMessage
+                    _errorMsg.value = e.localizedMessage
                 }.onStart {
-                    _isLoadingForeCast.value = true
+                    _isLoading.value = true
                 }.onCompletion {
-                    _isLoadingForeCast.value = false
+                    _isLoading.value = false
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {
@@ -52,7 +52,7 @@ class FactListViewModal @Inject constructor(
                                 _factList.value = it.data.second
                             }
                             is AppError -> {
-                                _errorMsgForeCast.value = it.message ?: it.throwable!!.message
+                                _errorMsg.value = it.message ?: it.throwable!!.message
                             }
                             else -> throw IllegalArgumentException()
                         }
@@ -62,8 +62,8 @@ class FactListViewModal @Inject constructor(
     }
 
     fun retryFactList() {
-        _isLoadingForeCast.value = true
-        _errorMsgForeCast.value = ""
+        _isLoading.value = true
+        _errorMsg.value = ""
         getFactList()
     }
 
