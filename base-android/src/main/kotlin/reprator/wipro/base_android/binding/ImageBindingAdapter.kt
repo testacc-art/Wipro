@@ -40,7 +40,7 @@ fun imageLoad(
             placeholder(placeHolderDrawable)
 
             error(errorDrawableValid)
-            //scale(Scale.FILL)
+            scale(Scale.FILL)
         }
     }
 }
