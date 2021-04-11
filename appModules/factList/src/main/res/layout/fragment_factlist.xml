@@ -1,20 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="factListAdapter"
+            type="reprator.wipro.factlist.FactListAdapter" />
+
+        <variable
+            name="catViewModal"
+            type="reprator.wipro.factlist.FactListViewModal" />
+    </data>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Factlist">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:minHeight="?attr/actionBarSize"
             android:layout_height="wrap_content"
-            android:text="Fact List"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="match_parent"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:title="@{catViewModal.title}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/factListSwipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/factListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_fact" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
 </layout>
