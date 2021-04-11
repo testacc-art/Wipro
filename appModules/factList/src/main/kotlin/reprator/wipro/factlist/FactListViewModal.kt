@@ -26,6 +26,7 @@ class FactListViewModal @Inject constructor(
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _errorMsg = MutableLiveData("")
+
     val errorMsg: LiveData<String> = _errorMsg
 
     private val _title = MutableLiveData<String?>()
@@ -33,6 +34,9 @@ class FactListViewModal @Inject constructor(
 
     @VisibleForTesting
     val _factList = MutableLiveData(emptyList<FactModals>())
+
+    val _swipeErrorMsg = MutableLiveData("")
+    val _swipeLoading = MutableLiveData(false)
 
     fun getFactList() {
         computationalBlock {
@@ -65,6 +69,33 @@ class FactListViewModal @Inject constructor(
         _isLoading.value = true
         _errorMsg.value = ""
         getFactList()
+    }
+
+    fun onRefresh(){
+        computationalBlock {
+            factListUseCase().flowOn(coroutineDispatcherProvider.io)
+                .catch { e ->
+                    _swipeErrorMsg.value = e.localizedMessage
+                }.onStart {
+                    _swipeLoading.value = true
+                }.onCompletion {
+                    _swipeLoading.value = false
+                }.flowOn(coroutineDispatcherProvider.main)
+                .collect {
+                    withContext(coroutineDispatcherProvider.main) {
+                        when (it) {
+                            is AppSuccess -> {
+                                _title.value = it.data.first
+                                _factList.value = it.data.second
+                            }
+                            is AppError -> {
+                                _swipeErrorMsg.value = it.message ?: it.throwable!!.message
+                            }
+                            else -> throw IllegalArgumentException()
+                        }
+                    }
+                }
+        }
     }
 
     private fun computationalBlock(
