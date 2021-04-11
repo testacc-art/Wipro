@@ -21,10 +21,10 @@ fun imageLoad(
     placeHolder: Drawable?, @DrawableRes errorDrawable: Int?,
     dimension: String?
 ) {
+    val errorDrawableValid = view.drawableFromViewContext(errorDrawable ?: R.drawable.ic_error)
+
     if (imageUrl.isNullOrBlank()) {
-        val drawable = placeHolder ?: view.drawableFromViewContext(
-            errorDrawable ?: R.drawable.ic_circles_loader
-        )
+        val drawable = errorDrawableValid ?: placeHolder
         view.load(drawable)
     } else {
 
@@ -39,8 +39,8 @@ fun imageLoad(
                 placeHolder ?: view.drawableFromViewContext(R.drawable.ic_circles_loader)
             placeholder(placeHolderDrawable)
 
-            error(placeHolderDrawable)
-            scale(Scale.FILL)
+            error(errorDrawableValid)
+            //scale(Scale.FILL)
         }
     }
 }
