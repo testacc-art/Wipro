@@ -12,40 +12,56 @@
             type="reprator.wipro.factlist.FactListAdapter" />
 
         <variable
-            name="catViewModal"
+            name="factViewModal"
             type="reprator.wipro.factlist.FactListViewModal" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".Factlist">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:minHeight="?attr/actionBarSize"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp"
-            app:title="@{catViewModal.title}" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".Factlist">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/factListSwipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/factListRecyclerView"
+            <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/row_fact" />
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:title="@{factViewModal.title}" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/factListSwipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/factListRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    recyclerListAdapter="@{factListAdapter}"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/row_fact" />
 
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/factList_loaderErrorHandler"
+            clickListener="@{() -> factViewModal.retryFactList()}"
+            exceptionError="@{factViewModal.errorMsg}"
+            isEmpty="@{TextUtils.isEmpty(factViewModal.errorMsg) &amp;&amp; !factViewModal.isLoading &amp;&amp; factViewModal._factList.empty }"
+            isError="@{TextUtils.isEmpty(factViewModal.errorMsg) ? false : true}"
+            isLoading="@{factViewModal.isLoading}"
+            layout="@layout/layout_loader_error_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
 </layout>
