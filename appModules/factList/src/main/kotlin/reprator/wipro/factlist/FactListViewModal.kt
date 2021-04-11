@@ -11,6 +11,7 @@ import reprator.wipro.base.extensions.computationalBlock
 import reprator.wipro.base.useCases.AppError
 import reprator.wipro.base.useCases.AppSuccess
 import reprator.wipro.base.util.network.AppCoroutineDispatchers
+import reprator.wipro.base_android.util.event.Event
 import reprator.wipro.factlist.domain.usecase.FactListUseCase
 import reprator.wipro.factlist.modals.FactModals
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class FactListViewModal @Inject constructor(
     @VisibleForTesting
     val _factList = MutableLiveData(emptyList<FactModals>())
 
-    val _swipeErrorMsg = MutableLiveData("")
+    val _swipeErrorMsg = MutableLiveData(Event(""))
     val _swipeLoading = MutableLiveData(false)
 
     fun getFactList() {
@@ -55,7 +56,7 @@ class FactListViewModal @Inject constructor(
         useCaseCall({
             _swipeLoading.value = it
         }, {
-            _swipeErrorMsg.value = it
+            _swipeErrorMsg.value = Event(it)
         })
     }
 
