@@ -14,9 +14,8 @@
         android:id="@+id/catRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/item_corner_radius"
+        app:cardElevation="@dimen/item_elevation"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +25,7 @@
             <TextView
                 android:id="@+id/factTitle"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/item_match_constraint"
                 android:layout_height="wrap_content"
                 android:text="@{factModal.title}"
                 tools:text="@sample/factlist.json/rows/title"
@@ -34,15 +33,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="1dp"/>
+                android:layout_marginBottom="@dimen/item_margin_bottom"/>
 
             <ImageView
                 android:id="@+id/factImage"
                 imageUrl="@{factModal.url}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="90dp"
-                android:minHeight="110dp"
+                android:minWidth="@dimen/item_image_width"
+                android:minHeight="@dimen/item_image_height"
                 tools:src="@tools:sample/avatars"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,9 +56,9 @@
 
             <TextView
                 android:id="@+id/factDescription"
-                android:layout_marginEnd="1dp"
+                android:layout_marginEnd="@dimen/item_margin_end"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/item_match_constraint"
                 android:layout_height="wrap_content"
                 android:text="@{factModal.description}"
                 tools:text="@sample/factlist.json/rows/description"
