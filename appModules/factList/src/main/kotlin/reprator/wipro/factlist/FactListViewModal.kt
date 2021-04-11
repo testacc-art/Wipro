@@ -17,7 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FactListViewModal @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val coroutineDispatcherProvider: AppCoroutineDispatchers,
     private val factListUseCase: FactListUseCase
 ) : ViewModel() {
@@ -39,30 +38,11 @@ class FactListViewModal @Inject constructor(
     val _swipeLoading = MutableLiveData(false)
 
     fun getFactList() {
-        computationalBlock {
-            factListUseCase().flowOn(coroutineDispatcherProvider.io)
-                .catch { e ->
-                    _errorMsg.value = e.localizedMessage
-                }.onStart {
-                    _isLoading.value = true
-                }.onCompletion {
-                    _isLoading.value = false
-                }.flowOn(coroutineDispatcherProvider.main)
-                .collect {
-                    withContext(coroutineDispatcherProvider.main) {
-                        when (it) {
-                            is AppSuccess -> {
-                                _title.value = it.data.first
-                                _factList.value = it.data.second
-                            }
-                            is AppError -> {
-                                _errorMsg.value = it.message ?: it.throwable!!.message
-                            }
-                            else -> throw IllegalArgumentException()
-                        }
-                    }
-                }
-        }
+        useCaseCall({
+            _isLoading.value = it
+        }, {
+            _errorMsg.value = it
+        })
     }
 
     fun retryFactList() {
@@ -71,15 +51,25 @@ class FactListViewModal @Inject constructor(
         getFactList()
     }
 
-    fun onRefresh(){
+    fun onRefresh() {
+        useCaseCall({
+            _swipeLoading.value = it
+        }, {
+            _swipeErrorMsg.value = it
+        })
+    }
+
+    private fun useCaseCall(
+        blockLoader: (Boolean) -> Unit, blockError: (String) -> Unit
+    ) {
         computationalBlock {
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
-                    _swipeErrorMsg.value = e.localizedMessage
+                    blockError(e.localizedMessage ?: "")
                 }.onStart {
-                    _swipeLoading.value = true
+                    blockLoader(true)
                 }.onCompletion {
-                    _swipeLoading.value = false
+                    blockLoader(false)
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {
@@ -89,7 +79,7 @@ class FactListViewModal @Inject constructor(
                                 _factList.value = it.data.second
                             }
                             is AppError -> {
-                                _swipeErrorMsg.value = it.message ?: it.throwable!!.message
+                                blockError(it.message ?: it.throwable?.message ?: "")
                             }
                             else -> throw IllegalArgumentException()
                         }
