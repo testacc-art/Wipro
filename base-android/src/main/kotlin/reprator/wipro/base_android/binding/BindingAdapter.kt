@@ -5,6 +5,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import reprator.wipro.base_android.extensions.snackBar
 
 @BindingAdapter("goneUnless")
 fun bindGoneUnless(view: View, isVisible: Boolean) {
@@ -35,4 +36,11 @@ fun RecyclerView.bindRecyclerViewAdapter(
         this.setHasFixedSize(true)
         this.adapter = adapter
     }
+}
+
+@BindingAdapter("snackBar")
+fun showSnackBar(view: View, message: String?) {
+    if(message.isNullOrBlank())
+        return
+    view.snackBar(message)
 }

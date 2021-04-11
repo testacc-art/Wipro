@@ -42,7 +42,8 @@
                 android:layout_height="match_parent"
                 goneUnless="@{factViewModal._factList.size() > 0}"
                 app:onRefreshListener="@{() -> factViewModal.onRefresh()}"
-                app:refreshing="@{factViewModal._swipeLoading}">
+                app:refreshing="@{factViewModal._swipeLoading}"
+                snackBar="@{factViewModal._swipeErrorMsg.consume()}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/factListRecyclerView"
