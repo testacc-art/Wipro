@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="reprator.wipro.factlist">
+
+    <application>
+        <activity
+            android:name=".reprator.wipro.factlist.HiltTestActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"  />
+    </application>
+
+</manifest>
