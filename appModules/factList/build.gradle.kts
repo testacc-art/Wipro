@@ -19,7 +19,7 @@ android {
 
         resConfigs(AndroidSdk.locales)
 
-        testInstrumentationRunner = Libs.TestDependencies.testRunner
+        testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
     }
 
     buildFeatures.dataBinding = true
@@ -92,4 +92,19 @@ dependencies {
     testImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
+
+    debugImplementation(Libs.TestDependencies.fragmentTesting)
+
+    //Hilt Android UI test
+    androidTestImplementation(Libs.DaggerHilt.hiltAndroidTest)
+    kaptAndroidTest(Libs.DaggerHilt.hiltCompilerAndroid)
+
+    androidTestImplementation(Libs.TestDependencies.Espresso.core)
+    androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
+    androidTestImplementation(Libs.TestDependencies.Espresso.intents)
+
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.core)
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.rules)
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.runner)
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.truth)
 }
