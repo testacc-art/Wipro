@@ -205,4 +205,41 @@ class FactListViewModalTest {
             Truth.assertThat(listError).isNotEmpty()
             Truth.assertThat(listError).hasSize(1)
         }
+
+    @Test
+    fun `onRefresh, getlist successfully`() =
+        coroutinesTestRule.runBlockingTest {
+
+            val output = getFakeManipulatedRemoteDataList()
+
+            coEvery {
+                factListUseCase()
+            } returns flowOf(AppSuccess(output))
+
+            viewModal.onRefresh()
+
+            verifySequence {
+                observerLoad.onChanged(any())
+                observerError.onChanged(any())
+                observerSuccessList.onChanged(any())
+
+                observerRefreshLoad.onChanged(any())
+                observerRefreshError.onChanged(any())
+
+                observerRefreshLoad.onChanged(any())
+                observerSuccessList.onChanged(any())
+                observerRefreshLoad.onChanged(any())
+            }
+
+            Truth.assertThat(listSuccess).isNotEmpty()
+            Truth.assertThat(listSuccess).hasSize(output.second.size)
+
+            Truth.assertThat(listLoader).isEmpty()
+            Truth.assertThat(listError).isEmpty()
+
+            Truth.assertThat(listRefreshError).isEmpty()
+
+            Truth.assertThat(listRefreshLoader).isNotEmpty()
+            Truth.assertThat(listRefreshLoader).hasSize(2)
+        }
 }
