@@ -29,6 +29,11 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     sourceSets {
         map { it.java.srcDirs("src/${it.name}/kotlin") }
     }
@@ -50,8 +55,8 @@ android {
     }
 
     packagingOptions {
-        exclude ("META-INF/atomicfu.kotlin_module")
-        pickFirst ("META-INF/*")
+        exclude("META-INF/atomicfu.kotlin_module")
+        pickFirst("META-INF/*")
     }
 
     testOptions {
@@ -75,6 +80,9 @@ dependencies {
 
     implementation(Libs.AndroidX.Fragment.fragment)
     implementation(Libs.AndroidX.Fragment.fragmentKtx)
+
+    implementation(Libs.TestDependencies.Espresso.idlingResource)
+    implementation(Libs.TestDependencies.Espresso.idlingResourceSupport)
 
     //Hilt
     implementation(Libs.DaggerHilt.hilt)
@@ -103,8 +111,5 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
     androidTestImplementation(Libs.TestDependencies.Espresso.intents)
 
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.core)
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.rules)
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.runner)
     androidTestImplementation(Libs.TestDependencies.AndroidXTest.truth)
 }
