@@ -216,6 +216,7 @@ object Libs {
             const val intents = "androidx.test.espresso:espresso-intents:$version"
             const val web = "androidx.test.espresso:espresso-web:$version"
             const val idlingResource = "androidx.test.espresso:espresso-idling-resource:$version"
+            const val idlingResourceSupport = "com.android.support.test.espresso.idling:idling-net:3.0.2"
         }
 
         const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
