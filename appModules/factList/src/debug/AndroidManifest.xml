@@ -4,8 +4,8 @@
 
     <application>
         <activity
-            android:name=".reprator.wipro.factlist.HiltTestActivity"
-            android:theme="@style/AppTheme"
+            android:name=".HiltTestActivity"
+            android:theme="@style/Theme.Wipro"
             android:exported="false"  />
     </application>
 
