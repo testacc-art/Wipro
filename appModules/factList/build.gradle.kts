@@ -19,7 +19,19 @@ android {
 
         resConfigs(AndroidSdk.locales)
 
+        //testInstrumentationRunner = Libs.TestDependencies.testRunner
         testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
+
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments += mapOf(
+            "clearPackageData" to "true"
+        )
+    }
+
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
 
     buildFeatures.dataBinding = true
@@ -62,6 +74,7 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
+        animationsDisabled = true
     }
 }
 
@@ -92,12 +105,11 @@ dependencies {
     testImplementation(Libs.TestDependencies.core)
     testImplementation(Libs.OkHttp.mockWebServer)
     testImplementation(Libs.TestDependencies.jUnit)
-    testImplementation(Libs.TestDependencies.AndroidXTest.junit)
     testImplementation(Libs.TestDependencies.AndroidXTest.rules)
     testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
-    testImplementation(Libs.Coroutines.coroutineTest) {
+    debugImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
@@ -112,4 +124,9 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.Espresso.intents)
 
     androidTestImplementation(Libs.TestDependencies.AndroidXTest.truth)
+    androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
+
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.runner)
+    androidTestUtil(Libs.TestDependencies.AndroidXTest.orchestrator)
 }

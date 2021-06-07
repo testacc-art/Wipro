@@ -7,23 +7,20 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.MediumTest
+import androidx.test.filters.LargeTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import reprator.wipro.factlist.di.FactListModule
 import reprator.wipro.factlist.util.EspressoUriIdlingResource
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 
-@MediumTest
-@UninstallModules(FactListModule::class)
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
+@LargeTest
 class FactlistTest {
 
     @get:Rule

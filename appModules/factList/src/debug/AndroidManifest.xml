@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="reprator.wipro.factlist">
 
-    <application>
+    <application android:allowBackup="false"
+        android:label="UI Test"
+        android:supportsRtl="false">
         <activity
             android:name=".HiltTestActivity"
             android:theme="@style/Theme.Wipro"

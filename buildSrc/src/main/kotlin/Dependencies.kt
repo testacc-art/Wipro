@@ -180,8 +180,8 @@ object Libs {
     }
 
     object DaggerHilt {
-        private const val version = "2.34-beta"
-        private const val androidXversion = "1.0.0-alpha03"
+        private const val version = "2.36"
+        private const val androidXversion = "1.0.0"
 
         const val classPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val hilt = "com.google.dagger:hilt-android:$version"
@@ -204,6 +204,7 @@ object Libs {
             private const val version = "1.3.0"
             const val core = "androidx.test:core:$version"
             const val runner = "androidx.test:runner:$version"
+            const val orchestrator = "androidx.test:orchestrator:$version"
             const val rules = "androidx.test:rules:$version"
             const val truth = "androidx.test.ext:truth:$version"
             const val junit = "androidx.test.ext:junit:1.1.2"
