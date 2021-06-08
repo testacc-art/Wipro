@@ -18,20 +18,8 @@ android {
         )
 
         resConfigs(AndroidSdk.locales)
-
-        //testInstrumentationRunner = Libs.TestDependencies.testRunner
-        testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
-
-        // The following argument makes the Android Test Orchestrator run its
-        // "pm clear" command after each test invocation. This command ensures
-        // that the app's state is completely cleared between tests.
-        testInstrumentationRunnerArguments += mapOf(
-            "clearPackageData" to "true"
-        )
-    }
-
-    testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
     }
 
     buildFeatures.dataBinding = true
@@ -113,20 +101,6 @@ dependencies {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
-    debugImplementation(Libs.TestDependencies.fragmentTesting)
-
-    //Hilt Android UI test
-    androidTestImplementation(Libs.DaggerHilt.hiltAndroidTest)
-    kaptAndroidTest(Libs.DaggerHilt.hiltCompilerAndroid)
-
-    androidTestImplementation(Libs.TestDependencies.Espresso.core)
-    androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
-    androidTestImplementation(Libs.TestDependencies.Espresso.intents)
-
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.truth)
-    androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
-
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.runner)
-    androidTestUtil(Libs.TestDependencies.AndroidXTest.orchestrator)
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
