@@ -18,7 +18,7 @@ android {
         )
 
         resConfigs(AndroidSdk.locales)
-        testInstrumentationRunner = "reprator.wipro.factlist.MyTestRunner"
+        testInstrumentationRunner = "reprator.wipro.factlist.FactListTestRunner"
     }
 
     buildFeatures.dataBinding = true
