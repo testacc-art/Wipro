@@ -18,8 +18,7 @@ android {
         )
 
         resConfigs(AndroidSdk.locales)
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        //testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
+        testInstrumentationRunner = "reprator.wipro.factlist.MyTestRunner"
     }
 
     buildFeatures.dataBinding = true
@@ -101,6 +100,21 @@ dependencies {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
+    /*
+       Tests
+    */
+    // Hilt
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.36")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.36")
+
+    debugImplementation("androidx.fragment:fragment-testing:1.3.4")
+
+    androidTestImplementation("androidx.test:core-ktx:1.3.0")
+
+
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+
+    androidTestImplementation("io.mockk:mockk-android:1.10.5")
+
 }

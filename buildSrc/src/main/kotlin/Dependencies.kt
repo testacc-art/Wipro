@@ -225,6 +225,6 @@ object Libs {
         const val jUnit = "junit:junit:4.12"
         const val core = "androidx.arch.core:core-testing:2.1.0"
         const val roboElectric = "org.robolectric:robolectric:4.5.1"
-        const val fragmentTesting = "androidx.fragment:fragment-testing:1.2.0"
+        const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
     }
 }
