@@ -3,12 +3,12 @@ package reprator.wipro.factlist.di
 import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.testing.TestLifecycleOwner
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.mockk.mockk
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -22,7 +22,7 @@ class FakeAppModule {
 
     @Provides
     fun provideLifeCycle(): Lifecycle {
-        return mockk()
+        return TestLifecycleOwner().lifecycle
     }
 
     @Provides
@@ -42,6 +42,8 @@ class FakeAppModule {
     fun provideConnectivityChecker(
         @ApplicationContext context: Context, lifecycle: Lifecycle
     ): ConnectionDetector {
-        return mockk()
+        return TestInternet()
     }
+
+    class TestInternet(override val isInternetAvailable: Boolean = true): ConnectionDetector
 }

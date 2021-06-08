@@ -116,5 +116,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
     androidTestImplementation("io.mockk:mockk-android:1.10.5")
+    androidTestImplementation("androidx.lifecycle:lifecycle-runtime-testing:2.3.1")
 
 }
