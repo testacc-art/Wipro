@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="reprator.wipro.factlist">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application android:allowBackup="false"
         android:label="UI Test"
         android:supportsRtl="false">

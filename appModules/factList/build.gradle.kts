@@ -65,6 +65,17 @@ android {
     }
 }
 
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            when (requested.module.toString()) {
+                "com.squareup.okhttp3:okhttp" -> useVersion("4.9.1")
+            }
+        }
+    }
+}
+
 dependencies {
     implementation(project(AppModules.moduleBaseJava))
     implementation(project(AppModules.moduleBaseAndroid))
@@ -117,5 +128,14 @@ dependencies {
 
     androidTestImplementation("io.mockk:mockk-android:1.10.5")
     androidTestImplementation("androidx.lifecycle:lifecycle-runtime-testing:2.3.1")
+    androidTestImplementation("com.agoda.kakao:kakao:2.4.0")
 
+    // MockServer
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1"){
+        exclude("com.squareup.okhttp3", "okhttp")
+    }
+
+    // OkHttp Idling Resource
+    androidTestImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0")
+    androidTestImplementation(Libs.OkHttp.loggingInterceptor)
 }

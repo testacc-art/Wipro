@@ -6,41 +6,40 @@ import android.os.Bundle
 import androidx.annotation.StyleRes
 import androidx.core.util.Preconditions
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.FragmentFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import reprator.wipro.factlist.HiltTestActivity
 import reprator.wipro.factlist.R
 
-
 /**
- * Following Architecture Sample (https://github.com/android/architecture-samples/tree/dev-hilt):
- *
- * launchFragmentInContainer from the androidx.fragment:fragment-testing library
- * is NOT possible to use right now as it uses a hardcoded Activity under the hood
- * (i.e. EmptyFragmentActivity) which is not annotated with @AndroidEntryPoint.
- *
- * As a workaround, use this function that is equivalent. It requires you to add
- * [HiltTestActivity] in the debug folder and include it in the debug AndroidManifest.xml file
- * as can be found in this project.
+ * FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY not resolve
+ * Because it is internal now
+ * See https://github.com/google/dagger/issues/2210
  */
+const val THEME_EXTRAS_BUNDLE_KEY =
+    "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY"
+
+@ExperimentalCoroutinesApi
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
-    @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
-    crossinline action: Fragment.() -> Unit = {}
+    @StyleRes themeResId: Int =  R.style.FragmentScenarioEmptyFragmentActivityTheme,
+    fragmentFactory: FragmentFactory? = null,
+    crossinline action: T.() -> Unit = {}
 ) {
     val startActivityIntent = Intent.makeMainActivity(
         ComponentName(
             ApplicationProvider.getApplicationContext(),
             HiltTestActivity::class.java
         )
-    ).putExtra(
-        "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY",
-        themeResId
-    )
+    ).putExtra(THEME_EXTRAS_BUNDLE_KEY, themeResId)
 
     ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
-        val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
+        fragmentFactory?.let {
+            activity.supportFragmentManager.fragmentFactory = it
+        }
+        val fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
             Preconditions.checkNotNull(T::class.java.classLoader),
             T::class.java.name
         )
@@ -51,7 +50,6 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
             .add(android.R.id.content, fragment, "")
             .commitNow()
 
-        fragment.action()
+        (fragment as T).action()
     }
-
 }
