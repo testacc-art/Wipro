@@ -10,7 +10,7 @@ import org.hamcrest.Matcher
 import reprator.wipro.factlist.R
 
 class FactListScreen : Screen<FactListScreen>() {
-    val moviesRv = KRecyclerView(
+    val factList = KRecyclerView(
         { withId(R.id.factListRecyclerView) },
         itemTypeBuilder = {
             itemType(FactListScreen::Item)

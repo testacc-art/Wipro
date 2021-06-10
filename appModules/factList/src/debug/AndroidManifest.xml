@@ -6,7 +6,8 @@
 
     <application android:allowBackup="false"
         android:label="UI Test"
-        android:supportsRtl="false">
+        android:supportsRtl="false"
+        android:usesCleartextTraffic="true">
         <activity
             android:name="reprator.wipro.factlist.HiltTestActivity"
             android:theme="@style/Theme.Wipro"

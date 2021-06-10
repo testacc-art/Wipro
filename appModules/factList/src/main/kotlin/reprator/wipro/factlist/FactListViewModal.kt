@@ -14,7 +14,6 @@ import reprator.wipro.base.util.network.AppCoroutineDispatchers
 import reprator.wipro.base_android.util.event.Event
 import reprator.wipro.factlist.domain.usecase.FactListUseCase
 import reprator.wipro.factlist.modals.FactModals
-import reprator.wipro.factlist.util.EspressoUriIdlingResource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,19 +63,14 @@ class FactListViewModal @Inject constructor(
     private fun useCaseCall(
         blockLoader: (Boolean) -> Unit, blockError: (String) -> Unit
     ) {
-
-        EspressoUriIdlingResource.beginLoad()
-
         computationalBlock {
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
                     blockError(e.localizedMessage ?: "")
-                    EspressoUriIdlingResource.endLoad()
                 }.onStart {
                     blockLoader(true)
                 }.onCompletion {
                     blockLoader(false)
-                    EspressoUriIdlingResource.endLoad()
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {

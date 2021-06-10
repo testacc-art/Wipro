@@ -11,6 +11,11 @@ android {
 
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
+
+        versionCode = 1
+        versionName = "1.0"
+
         multiDexEnabled = true
 
         consumerProguardFiles(
@@ -91,9 +96,6 @@ dependencies {
 
     implementation(Libs.AndroidX.Fragment.fragment)
     implementation(Libs.AndroidX.Fragment.fragmentKtx)
-
-    implementation(Libs.TestDependencies.Espresso.idlingResource)
-    implementation(Libs.TestDependencies.Espresso.idlingResourceSupport)
 
     //Hilt
     implementation(Libs.DaggerHilt.hilt)
