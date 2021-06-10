@@ -56,7 +56,11 @@ class FactListFragmentTest {
                 childAt<FactListScreen.Item>(2) {
                     title {
                         isVisible()
-                        //hasAnyText()
+                        hasText("Flag")
+                    }
+                    description {
+                        isVisible()
+                        hasEmptyText()
                     }
                     image { isVisible() }
                 }
