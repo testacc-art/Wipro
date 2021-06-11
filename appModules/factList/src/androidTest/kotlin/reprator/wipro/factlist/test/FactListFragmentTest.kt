@@ -22,7 +22,6 @@ import reprator.wipro.factlist.util.OkHttpProvider
 import reprator.wipro.factlist.util.dispatcherWithCustomBody
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 
-
 @ExperimentalCoroutinesApi
 @MediumTest
 @HiltAndroidTest
@@ -46,18 +45,13 @@ class FactListFragmentTest {
         )
         mockWebServer.dispatcher = dispatcherWithCustomBody()
 
-        launchFragmentInHiltContainer<Factlist> {
-            this.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
-                if (viewLifecycleOwner != null) {
-                }
-            }
-        }
+        launchFragmentInHiltContainer<Factlist>()
     }
 
     @Test
     fun recyclerview_second_item_should_be_visible() {
-        onData(anything()).atPosition(1).inRoot(isPlatformPopup()).perform(click())
 
+        Thread.sleep(1000)
         onScreen<FactListScreen> {
             factList {
                 childAt<FactListScreen.Item>(1) {
