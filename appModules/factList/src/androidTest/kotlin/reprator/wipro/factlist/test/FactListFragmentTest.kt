@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.screen.FactListScreen
+import reprator.wipro.factlist.util.MainCoroutineRule
 import reprator.wipro.factlist.util.dispatcherWithCustomBody
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 import javax.inject.Inject
@@ -25,6 +26,10 @@ class FactListFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    @JvmField
+    @Rule
+    val coroutinesTestRule = MainCoroutineRule()
 
     private val mockWebServer = MockWebServer()
 
