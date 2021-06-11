@@ -1,5 +1,5 @@
 object AndroidSdk {
-    const val min = 16
+    const val min = 19
     const val compile = 30
     const val target = compile
 
@@ -180,8 +180,8 @@ object Libs {
     }
 
     object DaggerHilt {
-        private const val version = "2.34-beta"
-        private const val androidXversion = "1.0.0-alpha03"
+        private const val version = "2.36"
+        private const val androidXversion = "1.0.0"
 
         const val classPath = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val hilt = "com.google.dagger:hilt-android:$version"
@@ -204,6 +204,7 @@ object Libs {
             private const val version = "1.3.0"
             const val core = "androidx.test:core:$version"
             const val runner = "androidx.test:runner:$version"
+            const val orchestrator = "androidx.test:orchestrator:$version"
             const val rules = "androidx.test:rules:$version"
             const val truth = "androidx.test.ext:truth:$version"
             const val junit = "androidx.test.ext:junit:1.1.2"
@@ -216,7 +217,6 @@ object Libs {
             const val intents = "androidx.test.espresso:espresso-intents:$version"
             const val web = "androidx.test.espresso:espresso-web:$version"
             const val idlingResource = "androidx.test.espresso:espresso-idling-resource:$version"
-            const val idlingResourceSupport = "com.android.support.test.espresso.idling:idling-net:3.0.2"
         }
 
         const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -224,6 +224,13 @@ object Libs {
         const val jUnit = "junit:junit:4.12"
         const val core = "androidx.arch.core:core-testing:2.1.0"
         const val roboElectric = "org.robolectric:robolectric:4.5.1"
-        const val fragmentTesting = "androidx.fragment:fragment-testing:1.2.0"
+
+        object UITest {
+            const val busyBee = "io.americanexpress.busybee:busybee-android:0.0.4"
+            const val kakao = "com.agoda.kakao:kakao:2.4.0"
+            const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
+            const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
+            const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+        }
     }
 }

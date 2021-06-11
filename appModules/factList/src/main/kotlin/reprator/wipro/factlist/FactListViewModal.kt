@@ -3,6 +3,7 @@ package reprator.wipro.factlist
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.americanexpress.busybee.BusyBee
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -14,7 +15,6 @@ import reprator.wipro.base.util.network.AppCoroutineDispatchers
 import reprator.wipro.base_android.util.event.Event
 import reprator.wipro.factlist.domain.usecase.FactListUseCase
 import reprator.wipro.factlist.modals.FactModals
-import reprator.wipro.factlist.util.EspressoUriIdlingResource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +22,9 @@ class FactListViewModal @Inject constructor(
     private val coroutineDispatcherProvider: AppCoroutineDispatchers,
     private val factListUseCase: FactListUseCase
 ) : ViewModel() {
+
+    private val BUSYBEE_OPERATION_NAME = "Network Call"
+    private val busyBee = BusyBee.singleton()
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -64,22 +67,23 @@ class FactListViewModal @Inject constructor(
     private fun useCaseCall(
         blockLoader: (Boolean) -> Unit, blockError: (String) -> Unit
     ) {
-
-        EspressoUriIdlingResource.beginLoad()
-
         computationalBlock {
+
+            busyBee.busyWith(BUSYBEE_OPERATION_NAME)
+
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
                     blockError(e.localizedMessage ?: "")
-                    EspressoUriIdlingResource.endLoad()
                 }.onStart {
                     blockLoader(true)
                 }.onCompletion {
                     blockLoader(false)
-                    EspressoUriIdlingResource.endLoad()
+                    busyBee.completed(BUSYBEE_OPERATION_NAME)
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {
+                        blockLoader(false)
+
                         when (it) {
                             is AppSuccess -> {
                                 _title.value = it.data.first

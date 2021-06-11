@@ -11,6 +11,11 @@ android {
 
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
+
+        versionCode = 1
+        versionName = "1.0"
+
         multiDexEnabled = true
 
         consumerProguardFiles(
@@ -18,8 +23,7 @@ android {
         )
 
         resConfigs(AndroidSdk.locales)
-
-        testInstrumentationRunner = "reprator.wipro.factlist.FactListHiltTestRunner"
+        testInstrumentationRunner = "reprator.wipro.factlist.FactListTestRunner"
     }
 
     buildFeatures.dataBinding = true
@@ -62,6 +66,25 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
+        animationsDisabled = true
+    }
+
+    sourceSets {
+        getByName("test").java.srcDirs("src/test/kotlin/","src/sharedTest/kotlin/")
+        getByName("test").resources.srcDirs("src/sharedTest/resources/")
+        getByName("androidTest").java.srcDirs("src/androidTest/kotlin/", "src/sharedTest/kotlin/")
+        getByName("androidTest").resources.srcDirs("src/sharedTest/resources/")
+    }
+}
+
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            when (requested.module.toString()) {
+                "com.squareup.okhttp3:okhttp" -> useVersion("4.9.1")
+            }
+        }
     }
 }
 
@@ -81,35 +104,44 @@ dependencies {
     implementation(Libs.AndroidX.Fragment.fragment)
     implementation(Libs.AndroidX.Fragment.fragmentKtx)
 
-    implementation(Libs.TestDependencies.Espresso.idlingResource)
-    implementation(Libs.TestDependencies.Espresso.idlingResourceSupport)
-
     //Hilt
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.hiltCompilerAndroid)
 
+    /*
+    *  Unit Testing
+    * */
     testImplementation(Libs.TestDependencies.AndroidXTest.truth)
     testImplementation(Libs.TestDependencies.core)
     testImplementation(Libs.OkHttp.mockWebServer)
     testImplementation(Libs.TestDependencies.jUnit)
-    testImplementation(Libs.TestDependencies.AndroidXTest.junit)
     testImplementation(Libs.TestDependencies.AndroidXTest.rules)
     testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
-    testImplementation(Libs.Coroutines.coroutineTest) {
+    debugImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
-    debugImplementation(Libs.TestDependencies.fragmentTesting)
+    /*
+       UI Tests
+    */
+    implementation(Libs.TestDependencies.UITest.busyBee)
+    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
 
-    //Hilt Android UI test
+    androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
+
     androidTestImplementation(Libs.DaggerHilt.hiltAndroidTest)
     kaptAndroidTest(Libs.DaggerHilt.hiltCompilerAndroid)
 
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
     androidTestImplementation(Libs.TestDependencies.Espresso.core)
-    androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
-    androidTestImplementation(Libs.TestDependencies.Espresso.intents)
 
-    androidTestImplementation(Libs.TestDependencies.AndroidXTest.truth)
+    androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
+    androidTestImplementation(Libs.TestDependencies.UITest.kakao)
+
+    androidTestImplementation(Libs.OkHttp.mockWebServer)
+
+    // OkHttp Idling Resource
+    androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
 }

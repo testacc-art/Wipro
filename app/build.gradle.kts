@@ -39,6 +39,7 @@ android {
 
     buildFeatures.viewBinding = true
     buildFeatures.dataBinding = true
+    buildFeatures.buildConfig = true
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
