@@ -3,6 +3,7 @@ package reprator.wipro.factlist
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.americanexpress.busybee.BusyBee
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -21,6 +22,8 @@ class FactListViewModal @Inject constructor(
     private val coroutineDispatcherProvider: AppCoroutineDispatchers,
     private val factListUseCase: FactListUseCase
 ) : ViewModel() {
+
+    private val busyBee = BusyBee.singleton()
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -64,6 +67,9 @@ class FactListViewModal @Inject constructor(
         blockLoader: (Boolean) -> Unit, blockError: (String) -> Unit
     ) {
         computationalBlock {
+
+            busyBee.busyWith("some Task")
+
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
                     blockError(e.localizedMessage ?: "")
@@ -71,9 +77,11 @@ class FactListViewModal @Inject constructor(
                     blockLoader(true)
                 }.onCompletion {
                     blockLoader(false)
+                    busyBee.completed("some Task")
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {
+                        blockLoader(false)
                         when (it) {
                             is AppSuccess -> {
                                 _title.value = it.data.first

@@ -116,7 +116,7 @@ dependencies {
     /*
        Tests
     */
-    // Hilt
+
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.36")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.36")
 
@@ -133,11 +133,9 @@ dependencies {
     androidTestImplementation("com.agoda.kakao:kakao:2.4.0")
 
     // MockServer
-    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1"){
-        exclude("com.squareup.okhttp3", "okhttp")
-    }
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
 
     // OkHttp Idling Resource
     androidTestImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0")
-    androidTestImplementation(Libs.OkHttp.loggingInterceptor)
+    implementation("io.americanexpress.busybee:busybee-android:0.0.4")
 }
