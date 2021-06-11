@@ -1,7 +1,9 @@
 package reprator.wipro.factlist.test
 
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
 import com.agoda.kakao.screen.Screen.Companion.onScreen
+import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,9 +14,9 @@ import org.junit.Rule
 import org.junit.Test
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.screen.FactListScreen
-import reprator.wipro.factlist.util.OkHttpIdlingResourceRule
 import reprator.wipro.factlist.util.dispatcherWithCustomBody
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @MediumTest
@@ -24,16 +26,18 @@ class FactListFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    @get:Rule
-    var rule = OkHttpIdlingResourceRule()
-
     private val mockWebServer = MockWebServer()
+
+    @Inject
+    lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
     @Before
     fun setUp() {
         hiltRule.inject()
 
         mockWebServer.start(8080)
+
+        IdlingRegistry.getInstance().register(okHttp3IdlingResource)
 
         mockWebServer.dispatcher = dispatcherWithCustomBody()
 
@@ -63,5 +67,6 @@ class FactListFragmentTest {
     @After
     fun cleanup() {
         mockWebServer.close()
+        IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
     }
 }
