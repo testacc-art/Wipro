@@ -68,6 +68,13 @@ android {
         unitTests.isIncludeAndroidResources = true
         animationsDisabled = true
     }
+
+    sourceSets {
+        getByName("test").java.srcDirs("src/test/kotlin/","src/sharedTest/kotlin/")
+        getByName("test").resources.srcDirs("src/sharedTest/resources/")
+        getByName("androidTest").java.srcDirs("src/androidTest/kotlin/", "src/sharedTest/kotlin/")
+        getByName("androidTest").resources.srcDirs("src/sharedTest/resources/")
+    }
 }
 
 

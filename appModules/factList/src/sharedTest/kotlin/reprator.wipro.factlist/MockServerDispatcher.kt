@@ -1,4 +1,4 @@
-package reprator.wipro.factlist.util
+package reprator.wipro.factlist
 
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse

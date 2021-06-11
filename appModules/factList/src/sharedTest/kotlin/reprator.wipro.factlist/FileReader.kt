@@ -1,4 +1,4 @@
-package reprator.wipro.factlist.util
+package reprator.wipro.factlist
 
 import java.io.IOException
 import java.io.InputStreamReader

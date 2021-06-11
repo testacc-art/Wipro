@@ -14,6 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import reprator.wipro.base.util.network.bodyOrThrow
+import reprator.wipro.factlist.dispatcherWithCustomBody
 import retrofit2.Retrofit
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
@@ -63,7 +64,8 @@ class FactListApiServiceTest {
 
     @Test
     fun `get fact list successfully`() = runBlocking {
-        javaClass.enqueueResponse(mockWebServer, "factlist.json")
+        mockWebServer.dispatcher = dispatcherWithCustomBody()
+
         val factListEntity =
             service.factList().body()
 
@@ -83,7 +85,8 @@ class FactListApiServiceTest {
 
     @Test
     fun `get fact list request check`() = runBlocking {
-        javaClass.enqueueResponse(mockWebServer, "factlist.json")
+        mockWebServer.dispatcher = dispatcherWithCustomBody()
+
         service.factList().body()
         val request = mockWebServer.takeRequest()
 
