@@ -23,6 +23,7 @@ class FactListViewModal @Inject constructor(
     private val factListUseCase: FactListUseCase
 ) : ViewModel() {
 
+    private val BUSYBEE_OPERATION_NAME = "Network Call"
     private val busyBee = BusyBee.singleton()
 
     private val _isLoading = MutableLiveData(true)
@@ -68,7 +69,7 @@ class FactListViewModal @Inject constructor(
     ) {
         computationalBlock {
 
-            busyBee.busyWith("some Task")
+            busyBee.busyWith(BUSYBEE_OPERATION_NAME)
 
             factListUseCase().flowOn(coroutineDispatcherProvider.io)
                 .catch { e ->
@@ -77,11 +78,12 @@ class FactListViewModal @Inject constructor(
                     blockLoader(true)
                 }.onCompletion {
                     blockLoader(false)
-                    busyBee.completed("some Task")
+                    busyBee.completed(BUSYBEE_OPERATION_NAME)
                 }.flowOn(coroutineDispatcherProvider.main)
                 .collect {
                     withContext(coroutineDispatcherProvider.main) {
                         blockLoader(false)
+
                         when (it) {
                             is AppSuccess -> {
                                 _title.value = it.data.first

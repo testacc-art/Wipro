@@ -132,6 +132,7 @@ class FactListViewModalTest {
             observerError.onChanged(any())              //Default Initialization
             observerSuccessList.onChanged(any())        //Default Initialization
             observerLoad.onChanged(any())
+            observerLoad.onChanged(any())
             observerSuccessList.onChanged(any())
             observerLoad.onChanged(any())
         }
@@ -158,13 +159,14 @@ class FactListViewModalTest {
             observerError.onChanged(any())              //Default Initialization
             observerSuccessList.onChanged(any())        //Default Initialization
             observerLoad.onChanged(any())
+            observerLoad.onChanged(any())
             observerError.onChanged(any())
             observerLoad.onChanged(any())
         }
 
         Truth.assertThat(listSuccess).isEmpty()
         Truth.assertThat(listLoader).isNotEmpty()
-        Truth.assertThat(listLoader).hasSize(2)
+        Truth.assertThat(listLoader).hasSize(3)
         Truth.assertThat(listError[0]).isEqualTo(output)
 
         Truth.assertThat(listRefreshError).isEmpty()
@@ -192,6 +194,7 @@ class FactListViewModalTest {
                 observerError.onChanged(any())
 
                 observerLoad.onChanged(any())
+                observerLoad.onChanged(any())
                 observerSuccessList.onChanged(any())
                 observerLoad.onChanged(any())
             }
@@ -200,7 +203,7 @@ class FactListViewModalTest {
             Truth.assertThat(listSuccess).hasSize(output.second.size)
 
             Truth.assertThat(listLoader).isNotEmpty()
-            Truth.assertThat(listLoader).hasSize(3)
+            Truth.assertThat(listLoader).hasSize(4)
 
             Truth.assertThat(listError).isNotEmpty()
             Truth.assertThat(listError).hasSize(1)
@@ -227,6 +230,8 @@ class FactListViewModalTest {
                 observerRefreshError.onChanged(any())
 
                 observerRefreshLoad.onChanged(any())
+                observerRefreshLoad.onChanged(any())
+
                 observerSuccessList.onChanged(any())
                 observerRefreshLoad.onChanged(any())
             }
@@ -240,6 +245,6 @@ class FactListViewModalTest {
             Truth.assertThat(listRefreshError).isEmpty()
 
             Truth.assertThat(listRefreshLoader).isNotEmpty()
-            Truth.assertThat(listRefreshLoader).hasSize(2)
+            Truth.assertThat(listRefreshLoader).hasSize(3)
         }
 }

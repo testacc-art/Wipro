@@ -217,7 +217,6 @@ object Libs {
             const val intents = "androidx.test.espresso:espresso-intents:$version"
             const val web = "androidx.test.espresso:espresso-web:$version"
             const val idlingResource = "androidx.test.espresso:espresso-idling-resource:$version"
-            const val idlingResourceSupport = "com.android.support.test.espresso.idling:idling-net:3.0.2"
         }
 
         const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -225,6 +224,13 @@ object Libs {
         const val jUnit = "junit:junit:4.12"
         const val core = "androidx.arch.core:core-testing:2.1.0"
         const val roboElectric = "org.robolectric:robolectric:4.5.1"
-        const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
+
+        object UITest {
+            const val busyBee = "io.americanexpress.busybee:busybee-android:0.0.4"
+            const val kakao = "com.agoda.kakao:kakao:2.4.0"
+            const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
+            const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
+            const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+        }
     }
 }

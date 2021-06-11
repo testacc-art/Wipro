@@ -23,8 +23,8 @@ class FactListApiServiceTest {
 
     companion object {
         private const val COUNT = 14
-        private const val TITLE = "About Canada"
-        private const val ITEM_TITLE = "Beavers"
+        private const val TITLE = "About India"
+        private const val ITEM_TITLE = "A"
         private const val ITEM_DESCRIPTION = "Beavers are second only to humans in their ability to manipulate and change their environment. They can measure up to 1.3 metres long. A group of beavers is called a colony"
         private const val ITEM_URL = "http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Beaver.jpg/220px-American_Beaver.jpg"
         private const val REQUEST_PATH = "/2iodh4vg0eortkl/facts.json"

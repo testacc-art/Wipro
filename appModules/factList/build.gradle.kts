@@ -101,6 +101,9 @@ dependencies {
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.hiltCompilerAndroid)
 
+    /*
+    *  Unit Testing
+    * */
     testImplementation(Libs.TestDependencies.AndroidXTest.truth)
     testImplementation(Libs.TestDependencies.core)
     testImplementation(Libs.OkHttp.mockWebServer)
@@ -114,28 +117,24 @@ dependencies {
     }
 
     /*
-       Tests
+       UI Tests
     */
+    implementation(Libs.TestDependencies.UITest.busyBee)
+    debugImplementation(Libs.TestDependencies.UITest.fragmentTesting)
 
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.36")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.36")
+    androidTestImplementation(Libs.TestDependencies.UITest.fragmentRuntime)
 
-    debugImplementation("androidx.fragment:fragment-testing:1.3.4")
+    androidTestImplementation(Libs.DaggerHilt.hiltAndroidTest)
+    kaptAndroidTest(Libs.DaggerHilt.hiltCompilerAndroid)
 
-    androidTestImplementation("androidx.test:core-ktx:1.3.0")
+    androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
+    androidTestImplementation(Libs.TestDependencies.Espresso.core)
 
+    androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
+    androidTestImplementation(Libs.TestDependencies.UITest.kakao)
 
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-
-    androidTestImplementation("io.mockk:mockk-android:1.10.5")
-    androidTestImplementation("androidx.lifecycle:lifecycle-runtime-testing:2.3.1")
-    androidTestImplementation("com.agoda.kakao:kakao:2.4.0")
-
-    // MockServer
-    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    androidTestImplementation(Libs.OkHttp.mockWebServer)
 
     // OkHttp Idling Resource
-    androidTestImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0")
-    implementation("io.americanexpress.busybee:busybee-android:0.0.4")
+    androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
 }
