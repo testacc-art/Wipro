@@ -4,9 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
-import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import okhttp3.mockwebserver.SocketPolicy
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -15,6 +13,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import reprator.wipro.base.util.network.bodyOrThrow
 import reprator.wipro.factlist.dispatcherWithCustomBody
+import reprator.wipro.factlist.dispatcherWithErrorTimeOut
 import retrofit2.Retrofit
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
@@ -26,8 +25,10 @@ class FactListApiServiceTest {
         private const val COUNT = 14
         private const val TITLE = "About India"
         private const val ITEM_TITLE = "A"
-        private const val ITEM_DESCRIPTION = "Beavers are second only to humans in their ability to manipulate and change their environment. They can measure up to 1.3 metres long. A group of beavers is called a colony"
-        private const val ITEM_URL = "http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Beaver.jpg/220px-American_Beaver.jpg"
+        private const val ITEM_DESCRIPTION =
+            "Beavers are second only to humans in their ability to manipulate and change their environment. They can measure up to 1.3 metres long. A group of beavers is called a colony"
+        private const val ITEM_URL =
+            "http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Beaver.jpg/220px-American_Beaver.jpg"
         private const val REQUEST_PATH = "/2iodh4vg0eortkl/facts.json"
     }
 
@@ -103,14 +104,9 @@ class FactListApiServiceTest {
     }
 
     @Test(expected = SocketTimeoutException::class)
-    fun `Timeout example`() = runBlocking {
-        val response = MockResponse()
-            .setSocketPolicy(SocketPolicy.NO_RESPONSE)
-            .throttleBody(1, 2, TimeUnit.SECONDS)
+    fun `Timeout example`(): Unit = runBlocking {
+        mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
 
-        mockWebServer.enqueue(response)
-
-        val execute =
-            service.factList().bodyOrThrow()
+        service.factList().bodyOrThrow()
     }
 }
