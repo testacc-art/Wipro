@@ -1,11 +1,13 @@
 package reprator.wipro.factlist.test
 
+import android.content.Context
+import androidx.core.content.res.ResourcesCompat
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
-import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -31,6 +33,8 @@ class FactListFragmentTest {
     @Inject
     lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
+    private lateinit var contextTest: Context
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -41,24 +45,51 @@ class FactListFragmentTest {
 
         mockWebServer.dispatcher = dispatcherWithCustomBody()
 
-        launchFragmentInHiltContainer<Factlist>()
+        launchFragmentInHiltContainer<Factlist>(){
+            contextTest = requireContext()
+        }
     }
 
     @Test
     fun recyclerview_second_item_should_be_visible() {
 
         onScreen<FactListScreen> {
+
             factList {
-                childAt<FactListScreen.Item>(1) {
+
+                hasSize(14)
+
+                firstChild<FactListScreen.Item> {
                     title {
                         isVisible()
-                        hasText("B")
+                        hasText("A")
                     }
                     description {
-                        isVisible()
-                        hasEmptyText()
+                        isDisplayed()
+                        hasText("First Item Description")
                     }
-                    image { isVisible() }
+                    image {
+                        isDisplayed()
+                    }
+                }
+
+                scrollToEnd()
+
+                lastChild<FactListScreen.Item> {
+                    title {
+                        hasText("Last Item")
+                    }
+                    description {
+                        hasText("Last Description")
+                    }
+                    image {
+                        val drawable = ResourcesCompat.getDrawable(
+                            contextTest.resources,
+                            R.drawable.ic_error,
+                            contextTest.theme
+                        )
+                        //hasDrawable(drawable!!)
+                    }
                 }
             }
         }

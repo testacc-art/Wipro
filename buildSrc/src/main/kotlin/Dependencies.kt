@@ -227,7 +227,7 @@ object Libs {
 
         object UITest {
             const val busyBee = "io.americanexpress.busybee:busybee-android:0.0.4"
-            const val kakao = "com.agoda.kakao:kakao:2.4.0"
+            const val kakao = "io.github.kakaocup:kakao:3.0.2"
             const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
             const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
             const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"

@@ -3,7 +3,7 @@
   "rows":[
     {
       "title":"A",
-      "description":"Beavers are second only to humans in their ability to manipulate and change their environment. They can measure up to 1.3 metres long. A group of beavers is called a colony",
+      "description":"First Item Description",
       "imageHref":"http://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Beaver.jpg/220px-American_Beaver.jpg"
     },
     {
@@ -67,8 +67,8 @@
       "imageHref":"http://3.bp.blogspot.com/__mokxbTmuJM/RnWuJ6cE9cI/AAAAAAAAATw/6z3m3w9JDiU/s400/019843_31.jpg"
     },
     {
-      "title":"Language",
-      "description":"Nous parlons tous les langues importants.",
+      "title":"Last Item",
+      "description":"Last Description",
       "imageHref":null
     }
   ]
