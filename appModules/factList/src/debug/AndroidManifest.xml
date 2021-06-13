@@ -4,9 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application android:allowBackup="false"
-        android:label="UI Test"
-        android:supportsRtl="false"
+    <application
         android:usesCleartextTraffic="true">
         <activity
             android:name="reprator.wipro.factlist.HiltTestActivity"
