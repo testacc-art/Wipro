@@ -47,7 +47,7 @@ class FactListFragmentTest {
     }
 
     @Test
-    fun recyclerview_second_item_should_be_visible() {
+    fun loadItemSuccessfulyInRecyclerview() {
 
         onScreen<FactListScreen> {
 
@@ -93,6 +93,15 @@ class FactListFragmentTest {
         }
     }
 
+    @Test
+    fun swipeToRefresh(){
+        onScreen<FactListScreen> {
+            swipeToRefresh {
+                swipeDown()
+                isDisplayed()
+            }
+        }
+    }
     @After
     fun cleanup() {
         mockWebServer.close()

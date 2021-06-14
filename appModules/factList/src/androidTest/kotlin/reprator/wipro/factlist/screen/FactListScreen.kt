@@ -5,11 +5,14 @@ import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.recycler.KRecyclerItem
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.screen.Screen
+import io.github.kakaocup.kakao.swiperefresh.KSwipeRefreshLayout
 import io.github.kakaocup.kakao.text.KTextView
 import org.hamcrest.Matcher
 import reprator.wipro.factlist.R
 
 class FactListScreen : Screen<FactListScreen>() {
+    val swipeToRefresh = KSwipeRefreshLayout { withId(R.id.factListSwipe) }
+
     val factList = KRecyclerView(
         { withId(R.id.factListRecyclerView) },
         itemTypeBuilder = {
