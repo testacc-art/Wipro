@@ -1,9 +1,9 @@
 package reprator.wipro.factlist.test
 
-import android.content.Context
 import androidx.core.content.res.ResourcesCompat
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.filters.MediumTest
+import androidx.test.platform.app.InstrumentationRegistry
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -16,6 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.dispatcherWithCustomBody
+import reprator.wipro.factlist.dispatcherWithErrorTimeOut
 import reprator.wipro.factlist.screen.FactListScreen
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 import javax.inject.Inject
@@ -33,8 +34,6 @@ class FactListFragmentTest {
     @Inject
     lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
-    private lateinit var contextTest: Context
-
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -45,13 +44,11 @@ class FactListFragmentTest {
 
         mockWebServer.dispatcher = dispatcherWithCustomBody()
 
-        launchFragmentInHiltContainer<Factlist>(){
-            contextTest = requireContext()
-        }
+        launchFragmentInHiltContainer<Factlist>()
     }
 
     @Test
-    fun recyclerview_second_item_should_be_visible() {
+    fun loadItemSuccessfullyInRecyclerview() {
 
         onScreen<FactListScreen> {
 
@@ -83,14 +80,49 @@ class FactListFragmentTest {
                         hasText("Last Description")
                     }
                     image {
+                        val appContext = InstrumentationRegistry.getInstrumentation().context!!
+
                         val drawable = ResourcesCompat.getDrawable(
-                            contextTest.resources,
+                            appContext.resources,
                             R.drawable.ic_error,
-                            contextTest.theme
+                            appContext.theme
                         )
-                        //hasDrawable(drawable!!)
+                       // hasDrawable(drawable!!)
                     }
                 }
+            }
+        }
+    }
+
+    @Test
+    fun swipeToRefresh(){
+        onScreen<FactListScreen> {
+            swipeToRefresh {
+                swipeDown()
+                isDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun showErrorView_retry() {
+        mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
+
+        onScreen<FactListScreen> {
+
+            factList {
+                isNotDisplayed()
+            }
+
+            mockWebServer.dispatcher = dispatcherWithCustomBody()
+
+            errorRetry {
+                isDisplayed()
+                click()
+            }
+
+            factList {
+                isDisplayed()
             }
         }
     }
