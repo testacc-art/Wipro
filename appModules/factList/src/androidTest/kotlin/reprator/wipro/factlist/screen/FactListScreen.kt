@@ -2,16 +2,22 @@ package reprator.wipro.factlist.screen
 
 import android.view.View
 import io.github.kakaocup.kakao.image.KImageView
+import io.github.kakaocup.kakao.progress.KProgressBar
 import io.github.kakaocup.kakao.recycler.KRecyclerItem
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.swiperefresh.KSwipeRefreshLayout
+import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import org.hamcrest.Matcher
 import reprator.wipro.factlist.R
 
 class FactListScreen : Screen<FactListScreen>() {
     val swipeToRefresh = KSwipeRefreshLayout { withId(R.id.factListSwipe) }
+
+    val progress = KProgressBar { withId(R.id.lee_progress) }
+    val empty = KTextView { withId(R.id.lee_empty) }
+    val errorRetry = KButton { withId(R.id.lee_error_retry) }
 
     val factList = KRecyclerView(
         { withId(R.id.factListRecyclerView) },

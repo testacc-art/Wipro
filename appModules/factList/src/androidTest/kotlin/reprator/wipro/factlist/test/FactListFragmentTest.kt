@@ -16,6 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.dispatcherWithCustomBody
+import reprator.wipro.factlist.dispatcherWithErrorTimeOut
 import reprator.wipro.factlist.screen.FactListScreen
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 import javax.inject.Inject
@@ -47,7 +48,7 @@ class FactListFragmentTest {
     }
 
     @Test
-    fun loadItemSuccessfulyInRecyclerview() {
+    fun loadItemSuccessfullyInRecyclerview() {
 
         onScreen<FactListScreen> {
 
@@ -102,6 +103,30 @@ class FactListFragmentTest {
             }
         }
     }
+
+    @Test
+    fun showErrorView_retry() {
+        mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
+
+        onScreen<FactListScreen> {
+
+            factList {
+                isNotDisplayed()
+            }
+
+            mockWebServer.dispatcher = dispatcherWithCustomBody()
+
+            errorRetry {
+                isDisplayed()
+                click()
+            }
+
+            factList {
+                isDisplayed()
+            }
+        }
+    }
+
     @After
     fun cleanup() {
         mockWebServer.close()
