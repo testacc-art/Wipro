@@ -95,7 +95,7 @@ class FactListFragmentTest {
     }
 
     @Test
-    fun swipeToRefresh(){
+    fun swipeToRefreshTest(){
         onScreen<FactListScreen> {
             swipeToRefresh {
                 swipeDown()
@@ -123,6 +123,16 @@ class FactListFragmentTest {
 
             factList {
                 isDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun toolbarVerification(){
+        onScreen<FactListScreen> {
+            toolBar {
+                isDisplayed()
+                hasTitle("About India")
             }
         }
     }

@@ -9,10 +9,14 @@ import io.github.kakaocup.kakao.screen.Screen
 import io.github.kakaocup.kakao.swiperefresh.KSwipeRefreshLayout
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
+import io.github.kakaocup.kakao.toolbar.KToolbar
 import org.hamcrest.Matcher
 import reprator.wipro.factlist.R
 
 class FactListScreen : Screen<FactListScreen>() {
+
+    val toolBar = KToolbar { withId(R.id.factListToolbar) }
+
     val swipeToRefresh = KSwipeRefreshLayout { withId(R.id.factListSwipe) }
 
     val progress = KProgressBar { withId(R.id.lee_progress) }
