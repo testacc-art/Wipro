@@ -134,7 +134,7 @@ class FactListFragmentTest {
     fun toolbarTest() {
         onScreen<FactListScreen> {
             toolBar {
-                isDisplayed()
+                isCompletelyDisplayed()
                 hasTitle("About India")
             }
         }
