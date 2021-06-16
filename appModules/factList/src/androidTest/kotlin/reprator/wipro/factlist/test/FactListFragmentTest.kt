@@ -2,12 +2,13 @@ package reprator.wipro.factlist.test
 
 import androidx.core.content.res.ResourcesCompat
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -87,19 +88,9 @@ class FactListFragmentTest {
                             R.drawable.ic_error,
                             appContext.theme
                         )
-                       // hasDrawable(drawable!!)
+                        // hasDrawable(drawable!!)
                     }
                 }
-            }
-        }
-    }
-
-    @Test
-    fun swipeToRefreshTest(){
-        onScreen<FactListScreen> {
-            swipeToRefresh {
-                swipeDown()
-                isDisplayed()
             }
         }
     }
@@ -128,7 +119,19 @@ class FactListFragmentTest {
     }
 
     @Test
-    fun toolbarVerification(){
+    fun swipeToRefreshTest() {
+        onScreen<FactListScreen> {
+
+            Thread.sleep(2000)
+            swipeToRefresh {
+                isVisible()
+                swipeDown()
+            }
+        }
+    }
+
+    @Test
+    fun toolbarTest() {
         onScreen<FactListScreen> {
             toolBar {
                 isDisplayed()

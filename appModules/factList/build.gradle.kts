@@ -138,7 +138,8 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.Espresso.core)
 
     androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
-    androidTestImplementation(Libs.TestDependencies.UITest.kakao)
+   // androidTestImplementation(Libs.TestDependencies.UITest.kakao)
+    androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
 
     androidTestImplementation(Libs.OkHttp.mockWebServer)
 
