@@ -21,6 +21,26 @@ fun dispatcherWithCustomBody() = object : Dispatcher() {
     }
 }
 
+
+fun dispatcherWithEmptyBody() = object : Dispatcher() {
+    override fun dispatch(request: RecordedRequest): MockResponse {
+        with(request.path) {
+            val response = MockResponse().setResponseCode(200)
+            return when {
+                this?.contains("/2iodh4vg0eortkl/facts.json") == true ->
+                    response
+                        .setBody("{\n" +
+                                "  \"title\":\"\",\n" +
+                                "  \"rows\":[\n" +
+                                "  ]\n" +
+                                "}")
+                else ->
+                    throw Exception("Wrong path")
+            }
+        }
+    }
+}
+
 fun dispatcherWithErrorTimeOut() = object : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse {
         return MockResponse()
