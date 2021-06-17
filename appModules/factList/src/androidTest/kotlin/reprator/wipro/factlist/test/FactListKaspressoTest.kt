@@ -175,7 +175,6 @@ class FactListKaspressoTest : TestCase() {
             }
         }
 
-
     @Test
     fun loadEmptyViewOnLaunch() =
         before {
