@@ -1,6 +1,8 @@
 package reprator.wipro.factlist.test
 
+import androidx.core.content.res.ResourcesCompat
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.platform.app.InstrumentationRegistry
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -190,6 +192,42 @@ class FactListKaspressoTest : TestCase() {
                     factList.isNotDisplayed()
                     empty {
                         isDisplayed()
+                    }
+                }
+            }
+        }
+
+
+    @Test
+    fun imageViewDrawableComparison() =
+        before {
+            testLogger.i("Before section drawable comparison")
+        }.after {
+            testLogger.i("After section drawable comparison")
+        }.run {
+            step("Open App") {
+                testLogger.i("Main section")
+
+                FactListKaspressoScreen {
+
+                    factList {
+
+                        hasSize(TOTAL_ITEM)
+
+                        childAt<FactListKaspressoScreen.Item>(1) {
+
+                            image {
+                                isDisplayed()
+                                val appContext = InstrumentationRegistry.getInstrumentation().context!!
+
+                                val drawable = ResourcesCompat.getDrawable(
+                                    appContext.resources,
+                                    R.drawable.ic_error,
+                                    appContext.theme
+                                )
+                                hasDrawable(drawable!!)
+                            }
+                        }
                     }
                 }
             }
