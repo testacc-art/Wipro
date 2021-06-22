@@ -14,13 +14,14 @@ buildscript {
     }
 }
 
+plugins {
+sp    id("com.diffplug.spotless' version '5.13.0")
+
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
-}
-
-tasks.register("clean",Delete::class){
-    delete(rootProject.buildDir)
 }
