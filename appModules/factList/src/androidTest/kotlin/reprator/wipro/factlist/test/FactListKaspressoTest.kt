@@ -25,6 +25,7 @@ class FactListKaspressoTest : TestCase() {
         const val TOTAL_ITEM = 14
         const val SCREEN_TITLE = "About India"
     }
+
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
