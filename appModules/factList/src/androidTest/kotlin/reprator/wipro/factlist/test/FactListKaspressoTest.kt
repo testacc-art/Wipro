@@ -194,4 +194,37 @@ class FactListKaspressoTest : TestCase() {
                 }
             }
         }
+
+
+    @Test
+    fun scroll_check_Position7() =
+        before {
+            testLogger.i("Before section scroll & check position 7")
+        }.after {
+            testLogger.i("After section scroll & check position 7")
+        }.run {
+            step("Open App") {
+                testLogger.i("Main section")
+
+                FactListKaspressoScreen {
+
+                    factList {
+
+                        scrollTo(7)
+                        childAt<FactListKaspressoScreen.Item>(7) {
+
+                            title {
+                                hasEmptyText()
+                            }
+                            description {
+                                hasEmptyText()
+                            }
+                            image {
+                                isDisplayed()
+                            }
+                        }
+                    }
+                }
+            }
+        }
 }

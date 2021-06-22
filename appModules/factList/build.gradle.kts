@@ -136,6 +136,7 @@ dependencies {
 
     androidTestImplementation(Libs.TestDependencies.AndroidXTest.junit)
     androidTestImplementation(Libs.TestDependencies.Espresso.core)
+    androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
 
     androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
    // androidTestImplementation(Libs.TestDependencies.UITest.kakao)
