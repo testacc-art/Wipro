@@ -60,7 +60,7 @@ class FactListKaspressoTest : TestCase() {
         }.after {
             testLogger.i("After section successfull")
         }.run {
-            step("Open App and show Toolbar") {
+            step("1. Open App and show Toolbar") {
                 testLogger.i("Main section")
 
                 FactListKaspressoScreen {
@@ -113,7 +113,7 @@ class FactListKaspressoTest : TestCase() {
         }.after {
             testLogger.i("After section pullToRefresh")
         }.run {
-            step("show list items with pull to refresh") {
+            step("1. show list items with pull to refresh") {
 
                 FactListKaspressoScreen {
 
@@ -128,7 +128,7 @@ class FactListKaspressoTest : TestCase() {
                 }
             }
 
-            step("verify error with snackbar") {
+            step("2. verify error with snackbar") {
 
                 FactListKaspressoScreen {
                     snackbar {
@@ -149,7 +149,7 @@ class FactListKaspressoTest : TestCase() {
         }.after {
             testLogger.i("After section loadErrorView")
         }.run {
-            step("show error view with reload button click") {
+            step("1. show error view with reload button click") {
 
                 FactListKaspressoScreen {
 
@@ -164,7 +164,7 @@ class FactListKaspressoTest : TestCase() {
                 }
             }
 
-            step("verify items in recyclerview") {
+            step("2. verify items in recyclerview") {
 
                 FactListKaspressoScreen {
                     factList {
@@ -204,7 +204,7 @@ class FactListKaspressoTest : TestCase() {
         }.after {
             testLogger.i("After section scroll & check position 7")
         }.run {
-            step("Open App") {
+            step("Open and scroll to position 6") {
                 testLogger.i("Main section")
 
                 FactListKaspressoScreen {
