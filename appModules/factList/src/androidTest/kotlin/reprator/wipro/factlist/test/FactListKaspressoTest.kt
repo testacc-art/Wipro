@@ -12,19 +12,12 @@ import org.junit.Rule
 import org.junit.Test
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.dispatcherWithCustomBody
-import reprator.wipro.factlist.dispatcherWithEmptyBody
-import reprator.wipro.factlist.dispatcherWithErrorTimeOut
 import reprator.wipro.factlist.screen.FactListKaspressoScreen
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 import javax.inject.Inject
 
 @HiltAndroidTest
 class FactListKaspressoTest : TestCase() {
-
-    companion object {
-        const val TOTAL_ITEM = 14
-        const val SCREEN_TITLE = "About India"
-    }
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
@@ -54,176 +47,19 @@ class FactListKaspressoTest : TestCase() {
     }
 
     @Test
-    fun `load_item_successfully_in_recyclerview`() =
+    fun initialScreenTest() =
         before {
-            testLogger.i("Before section successfull")
+            testLogger.i("Before section initial test")
         }.after {
-            testLogger.i("After section successfull")
-        }.run {
-            step("Open App and show Toolbar") {
-                testLogger.i("Main section")
-
-                FactListKaspressoScreen {
-                    toolBar {
-                        isVisible()
-                        isCompletelyDisplayed()
-                        hasTitle(SCREEN_TITLE)
-                    }
-
-                    factList {
-
-                        hasSize(TOTAL_ITEM)
-
-                        firstChild<FactListKaspressoScreen.Item> {
-                            title {
-                                isVisible()
-                                hasText("A")
-                            }
-                            description {
-                                isDisplayed()
-                                hasText("First Item Description")
-                            }
-                            image {
-                                isDisplayed()
-                            }
-                        }
-
-                        scrollToEnd()
-
-                        lastChild<FactListKaspressoScreen.Item> {
-                            title {
-                                hasText("Last Item")
-                            }
-                            description {
-                                hasText("Last Description")
-                            }
-                            image {
-                                isDisplayed()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    @Test
-    fun load_item_successfully_in_recyclerview_with_error_on_pullToRefresh() =
-        before {
-            testLogger.i("Before section pullToRefresh")
-        }.after {
-            testLogger.i("After section pullToRefresh")
-        }.run {
-            step("show list items with pull to refresh") {
-
-                FactListKaspressoScreen {
-
-                    factList.hasSize(TOTAL_ITEM)
-
-                    mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
-
-                    swipeToRefresh {
-                        isDisplayed()
-                        swipeDown()
-                    }
-                }
-            }
-
-            step("verify error with snackbar") {
-
-                FactListKaspressoScreen {
-                    snackbar {
-                        isDisplayed()
-                        text.hasText("timeout")
-                    }
-
-                }
-            }
-        }
-
-
-    @Test
-    fun loadErrorViewOnLaunch_withSuccessfulReload() =
-        before {
-            testLogger.i("Before section loadErrorView")
-            mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
-        }.after {
-            testLogger.i("After section loadErrorView")
-        }.run {
-            step("show error view with reload button click") {
-
-                FactListKaspressoScreen {
-
-                    factList.isNotDisplayed()
-
-                    mockWebServer.dispatcher = dispatcherWithCustomBody()
-
-                    errorRetry {
-                        isDisplayed()
-                        click()
-                    }
-                }
-            }
-
-            step("verify items in recyclerview") {
-
-                FactListKaspressoScreen {
-                    factList {
-                        hasSize(TOTAL_ITEM)
-                        isDisplayed()
-                    }
-
-                }
-            }
-        }
-
-    @Test
-    fun loadEmptyViewOnLaunch() =
-        before {
-            testLogger.i("Before section empty")
-            mockWebServer.dispatcher = dispatcherWithEmptyBody()
-        }.after {
-            testLogger.i("After section empty")
-        }.run {
-            step("show empty view") {
-
-                FactListKaspressoScreen {
-
-                    factList.isNotDisplayed()
-                    empty {
-                        isDisplayed()
-                    }
-                }
-            }
-        }
-
-
-    @Test
-    fun scroll_check_Position7() =
-        before {
-            testLogger.i("Before section scroll & check position 7")
-        }.after {
-            testLogger.i("After section scroll & check position 7")
+            testLogger.i("After section initial test")
         }.run {
             step("Open App") {
                 testLogger.i("Main section")
 
                 FactListKaspressoScreen {
 
-                    factList {
-
-                        scrollTo(7)
-                        childAt<FactListKaspressoScreen.Item>(7) {
-
-                            title {
-                                hasEmptyText()
-                            }
-                            description {
-                                hasEmptyText()
-                            }
-                            image {
-                                isDisplayed()
-                            }
-                        }
+                    progress {
+                        isDisplayed()
                     }
                 }
             }
