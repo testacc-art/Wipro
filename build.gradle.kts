@@ -100,10 +100,7 @@ tasks.dokkaHtml.configure {
 
 tasks.dokkaHtmlMultiModule.configure {
     print("dokkaHtmlVikram 41")
-    suppressInheritedMembers.set(true)
-    pluginsMapConfiguration.set(
-        mapOf("org.jetbrains.dokka.base.DokkaBase" to """{ "separateInheritedMembers": true}""")
-    )
+    suppressInheritedMembers.set(false)
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
@@ -117,11 +114,4 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             }
         }
     }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>() {
-    print("dokkaHtmlVikram 81")
-    pluginsMapConfiguration.set(
-        mapOf("org.jetbrains.dokka.base.DokkaBase" to """{ "separateInheritedMembers": true}""")
-    )
 }
