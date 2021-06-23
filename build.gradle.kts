@@ -1,9 +1,13 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    kotlin("jvm") version "1.4.32"
+    id("org.jetbrains.dokka") version ("1.4.32")
+}
+
 buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -17,7 +21,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
