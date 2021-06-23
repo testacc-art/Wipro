@@ -21,3 +21,8 @@ Dokka Command:
 	dokkaJekyllMultiModule - Runs all subprojects 'dokkaJekyll' tasks and generates module navigation page
 	dokkaJekyllPartial - Generates documentation in Jekyll flavored markdown format
 	javadoc - Generates Javadoc API documentation for the main source code.
+
+
+Reference Dokka:
+    1)https://kotlin.github.io/dokka/1.4.0/user_guide/gradle/usage/
+    2)https://kotlin.github.io/dokka/1.5.0/user_guide/gradle/usage/
