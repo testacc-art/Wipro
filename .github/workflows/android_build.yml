@@ -34,7 +34,7 @@ jobs:
           java-version: "11"
 
       - name: Make files executable
-        run: chmod +x ./gradlew && chmod +x ./engine/checksum.sh
+        run: chmod +x ./gradlew && chmod +x ./checksum.sh
 
       - name: Generate cache key
         run: ./checksum.sh checksum.txt
