@@ -43,7 +43,7 @@ android {
     buildFeatures.dataBinding = true
 
     packagingOptions {
-        pickFirst ("META-INF/*")
+        exclude ("META-INF/*")
     }
 }
 

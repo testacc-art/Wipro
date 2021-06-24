@@ -60,7 +60,7 @@ android {
 
     packagingOptions {
         exclude("META-INF/atomicfu.kotlin_module")
-        pickFirst("META-INF/*")
+        exclude("META-INF/*")
     }
 
     testOptions {
@@ -139,7 +139,8 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
 
     androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
-   // androidTestImplementation(Libs.TestDependencies.UITest.kakao)
+    androidTestImplementation(Libs.TestDependencies.UITest.dexmaker)
+
     androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
 
     androidTestImplementation(Libs.OkHttp.mockWebServer)
