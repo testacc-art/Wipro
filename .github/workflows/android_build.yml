@@ -50,14 +50,14 @@ jobs:
           path: app/build/reports/tests/testDebugUnitTest/
         if: always()
 
+
   instrumentation-test:
 
     name: Run UI Tests
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [ 21, 23, 29]
-        target: [ default ]
+        api-level: [ 21, 23, 29 ]
 
     steps:
       - name: Checkout the code
@@ -66,7 +66,8 @@ jobs:
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-      - uses: actions/cache@v2
+      - name: Gradle cache
+        uses: actions/cache@v2
         continue-on-error: true # continue if the cache restore/upload fails
         with:
           path: |
@@ -75,13 +76,32 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
-      - name: Run espresso tests
+      - name: AVD cache
+        uses: actions/cache@v2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: x86
-          profile: Nexus 6
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: run kaspresso tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
           script: ./gradlew connectedCheck --stacktrace
 
       - name: Upload test report
