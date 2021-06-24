@@ -1,4 +1,4 @@
-name: androidBuild
+name: UI Test
 
 on:
   push:
@@ -12,47 +12,58 @@ on:
   # Allows you to run the workflow manually
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # Build will compile APK, test APK and run tests, lint, etc.
+  build:
 
+    runs-on: macos-11.0 # use mac build for emulator hardware accelerator
 
-  test:
-    runs-on: macos-11.0
     strategy:
       matrix:
-        api-level: [21, 23, 29]
-        target: [default]
-
+        api-level: [24, 27, 29]
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-      - name: Copy  gradle properties file
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Set up JDK 1.8
+      - name: set up JDK 1.8
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: "11"
 
-      - name: Instrumentation Tests
+      - name: Make files executable
+        run: chmod +x ./gradlew && chmod +x ./engine/checksum.sh
+
+      - name: Generate cache key
+        run: ./checksum.sh checksum.txt
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/modules-2
+          key: ${{ runner.os }}-gradlemodules-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-gradlemodules-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/jars-3
+          key: ${{ runner.os }}-gradlejars-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-gradlejars-
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches/build-cache-1
+          key: ${{ runner.os }}-gradlebuildcache-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-gradlebuildcache-
+
+      - name: Run Integration Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: x86
-          profile: Nexus 6
+          arch: x86_64
           script: ./gradlew connectedCheck --stacktrace
-
-      - name: Upload Reports
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test-Reports
-          path: app/build/reports
-        if: always()
