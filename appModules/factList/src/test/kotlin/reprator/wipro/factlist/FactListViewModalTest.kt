@@ -1,10 +1,31 @@
+/*
+ * Copyright 2021 Vikram LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package reprator.wipro.factlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.google.common.truth.Truth
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import io.mockk.slot
+import io.mockk.verifySequence
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
@@ -39,16 +60,16 @@ class FactListViewModalTest {
 
     lateinit var viewModal: FactListViewModal
 
-    //create mockk object
+    // create mockk object
     val observerLoad = mockk<Observer<Boolean>>()
     val observerError = mockk<Observer<String>>()
     val observerSuccessList = mockk<Observer<List<FactModals>>>()
 
-    //For refresh
+    // For refresh
     val observerRefreshLoad = mockk<Observer<Boolean>>()
     val observerRefreshError = mockk<Observer<Event<String>>>()
 
-    //create slot
+    // create slot
     val slotLoad = slot<Boolean>()
     val slotError = slot<String>()
     val slotSuccess = slot<List<FactModals>>()
@@ -56,7 +77,7 @@ class FactListViewModalTest {
     val slotRefreshLoad = slot<Boolean>()
     val slotRefreshError = slot<Event<String>>()
 
-    //create list to store values
+    // create list to store values
     val listError = arrayListOf<String>()
     val listLoader = arrayListOf<Boolean>()
     val listSuccess = arrayListOf<List<FactModals>>()
@@ -77,7 +98,7 @@ class FactListViewModalTest {
         observerRefreshLoad.onChangeExtension()
         observerRefreshError.onChangeExtension()
 
-        //start observing
+        // start observing
         viewModal.isLoading.observeForever(observerLoad)
         viewModal.errorMsg.observeForever(observerError)
         viewModal._factList.observeForever(observerSuccessList)
@@ -128,9 +149,9 @@ class FactListViewModalTest {
         viewModal.getFactList()
 
         verifySequence {
-            observerLoad.onChanged(any())               //Default Initialization
-            observerError.onChanged(any())              //Default Initialization
-            observerSuccessList.onChanged(any())        //Default Initialization
+            observerLoad.onChanged(any()) // Default Initialization
+            observerError.onChanged(any()) // Default Initialization
+            observerSuccessList.onChanged(any()) // Default Initialization
             observerLoad.onChanged(any())
             observerLoad.onChanged(any())
             observerSuccessList.onChanged(any())
@@ -155,9 +176,9 @@ class FactListViewModalTest {
         viewModal.getFactList()
 
         verifySequence {
-            observerLoad.onChanged(any())               //Default Initialization
-            observerError.onChanged(any())              //Default Initialization
-            observerSuccessList.onChanged(any())        //Default Initialization
+            observerLoad.onChanged(any()) // Default Initialization
+            observerError.onChanged(any()) // Default Initialization
+            observerSuccessList.onChanged(any()) // Default Initialization
             observerLoad.onChanged(any())
             observerLoad.onChanged(any())
             observerError.onChanged(any())

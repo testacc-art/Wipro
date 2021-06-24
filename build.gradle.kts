@@ -35,16 +35,17 @@ subprojects {
             targetExclude("$buildDir/**/*.kt")
             targetExclude("bin/**/*.kt")
 
-            ktlint("0.40.0")   // has its own section below
-            ktfmt()    // has its own section below
-            prettier() // has its own section below
-
+            ktlint("0.40.0")
             licenseHeaderFile("${project.rootProject.projectDir}/spotless/copyright.kt")
         }
 
         kotlinGradle {
-            target("*.gradle.kts") // default target for kotlinGradle
-            ktlint() // or ktfmt() or prettier()
+            target("*.gradle.kts")
+            ktlint()
+        }
+
+        format ("xml") {
+            target ("**/*.xml")
         }
     }
 }
