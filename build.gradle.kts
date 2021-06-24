@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm") version "1.5.10"
+
     id("org.jetbrains.dokka") version ("1.4.32")
+    id("com.diffplug.spotless") version "5.14.0"
 }
 
 buildscript {
@@ -18,10 +20,6 @@ buildscript {
     }
 }
 
-plugins {
-    id("com.diffplug.spotless") version "5.14.0"
-}
-
 allprojects {
     repositories {
         google()
@@ -31,7 +29,8 @@ allprojects {
 
 subprojects {
 
-    apply(plugin = "com.diffplug.spotless")
+        plugins.apply("org.jetbrains.dokka")
+        plugins.apply("com.diffplug.spotless")
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
@@ -47,9 +46,12 @@ subprojects {
             target("*.gradle.kts")
             ktlint()
         }
+    }
 
-        format ("xml") {
-            target ("**/*.xml")
+    tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
+        dokkaSourceSets.configureEach {
+            //noAndroidSdkLink.set(true)
+            suppressInheritedMembers.set(true)
         }
     }
 }
