@@ -1,8 +1,8 @@
 plugins {
-    kotlin("jvm") version "1.5.10"
+    kotlin(Libs.Plugins.kotlinJVM) version Libs.Versions.kotlin
 
-    id("org.jetbrains.dokka") version ("1.4.32")
-    id("com.diffplug.spotless") version "5.14.0"
+    id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
+    id(Libs.Plugins.spotless) version Libs.Versions.spotless
 }
 
 buildscript {
@@ -29,8 +29,8 @@ allprojects {
 
 subprojects {
 
-    plugins.apply("org.jetbrains.dokka")
-    plugins.apply("com.diffplug.spotless")
+    plugins.apply(Libs.Plugins.dokka)
+    plugins.apply(Libs.Plugins.spotless)
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
@@ -38,7 +38,7 @@ subprojects {
             targetExclude("$buildDir/**/*.kt")
             targetExclude("bin/**/*.kt")
 
-            ktlint("0.40.0")
+            ktlint(Libs.Versions.ktlint)
             licenseHeaderFile("${project.rootProject.projectDir}/spotless/copyright.kt")
         }
 

@@ -30,6 +30,13 @@ object AppModules {
 
 object Libs {
 
+    object Versions{
+        const val kotlin = "1.5.20"
+        const val spotless = "5.14.0"
+        const val dokka = "1.4.32"
+        const val ktlint = "0.40.0"
+    }
+
     object Plugins {
         const val androidApplication = "com.android.application"
         const val crashlytics = "com.google.firebase.crashlytics"
@@ -42,6 +49,8 @@ object Libs {
         const val kotlinKapt = "kapt"
         const val kaptDagger = "dagger.hilt.android.plugin"
         const val kotlinNavigation = "androidx.navigation.safeargs.kotlin"
+        const val dokka = "org.jetbrains.dokka"
+        const val spotless = "com.diffplug.spotless"
     }
 
     const val inject = "javax.inject:javax.inject:1"
@@ -75,7 +84,7 @@ object Libs {
     }
 
     object Kotlin {
-        private const val kotlinVersion = "1.5.10"
+        private const val kotlinVersion = "1.5.20"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
