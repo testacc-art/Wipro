@@ -53,7 +53,7 @@ android {
     }
 
     packagingOptions {
-        exclude ("META-INF/*")
+        exclude("META-INF/*")
     }
 }
 

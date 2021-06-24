@@ -1,3 +1,19 @@
+/*
+ * Copyright 2021 Vikram LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package reprator.wipro.factlist.datasource.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -80,7 +96,6 @@ class FactListRemoteDataSourceImplTest {
         }
     }
 
-
     @Test
     fun `fetch list failed with errorBody`() = coroutinesTestRule.runBlockingTest {
 
@@ -88,7 +103,7 @@ class FactListRemoteDataSourceImplTest {
             factListApiService.factList()
         } returns Response.error(404, mockk(relaxed = true))
 
-        val resp =  factListRemoteDataSource.getFacListRemoteDataSource()
+        val resp = factListRemoteDataSource.getFacListRemoteDataSource()
 
         Truth.assertThat(resp).isInstanceOf(AppError::class.java)
         Truth.assertThat((resp as AppError).throwable).isInstanceOf(HttpException::class.java)

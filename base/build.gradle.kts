@@ -8,9 +8,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     sourceSets {
-        map { it.java.srcDirs("src/${it.name}/kotlin")}
+        map { it.java.srcDirs("src/${it.name}/kotlin") }
     }
-
 }
 
 dependencies {
@@ -25,4 +24,3 @@ dependencies {
     api(Libs.Retrofit.jacksonConverter)
     api(Libs.Retrofit.jacksonKotlinModule)
 }
-

@@ -70,13 +70,12 @@ android {
     }
 
     sourceSets {
-        getByName("test").java.srcDirs("src/test/kotlin/","src/sharedTest/kotlin/")
+        getByName("test").java.srcDirs("src/test/kotlin/", "src/sharedTest/kotlin/")
         getByName("test").resources.srcDirs("src/sharedTest/resources/")
         getByName("androidTest").java.srcDirs("src/androidTest/kotlin/", "src/sharedTest/kotlin/")
         getByName("androidTest").resources.srcDirs("src/sharedTest/resources/")
     }
 }
-
 
 configurations.all {
     resolutionStrategy {
@@ -104,7 +103,7 @@ dependencies {
     implementation(Libs.AndroidX.Fragment.fragment)
     implementation(Libs.AndroidX.Fragment.fragmentKtx)
 
-    //Hilt
+    // Hilt
     implementation(Libs.DaggerHilt.hilt)
     kapt(Libs.DaggerHilt.hiltCompilerAndroid)
 

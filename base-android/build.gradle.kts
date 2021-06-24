@@ -30,7 +30,7 @@ android {
     }
 
     sourceSets {
-        map { it.java.srcDirs("src/${it.name}/kotlin")}
+        map { it.java.srcDirs("src/${it.name}/kotlin") }
     }
 
     testOptions {
@@ -43,7 +43,7 @@ android {
     buildFeatures.dataBinding = true
 
     packagingOptions {
-        exclude ("META-INF/*")
+        exclude("META-INF/*")
     }
 }
 
