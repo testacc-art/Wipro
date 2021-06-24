@@ -232,6 +232,8 @@ object Libs {
             const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
             const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
             const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+            const val dexmaker = "com.linkedin.dexmaker:dexmaker:2.28.1"
+
         }
     }
 }

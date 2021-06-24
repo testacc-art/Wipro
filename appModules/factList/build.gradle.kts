@@ -60,7 +60,7 @@ android {
 
     packagingOptions {
         exclude("META-INF/atomicfu.kotlin_module")
-        pickFirst("META-INF/*")
+        exclude("META-INF/*")
     }
 
     testOptions {
@@ -119,7 +119,7 @@ dependencies {
     testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
-    debugImplementation(Libs.Coroutines.coroutineTest) {
+    testImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
@@ -139,11 +139,16 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.Espresso.contrib)
 
     androidTestImplementation(Libs.TestDependencies.Mockk.instrumentedTest)
-   // androidTestImplementation(Libs.TestDependencies.UITest.kakao)
+    androidTestImplementation(Libs.TestDependencies.UITest.dexmaker)
+
     androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
 
     androidTestImplementation(Libs.OkHttp.mockWebServer)
 
     // OkHttp Idling Resource
     androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
+
+    androidTestImplementation(Libs.Coroutines.coroutineTest) {
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
+    }
 }
