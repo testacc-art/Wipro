@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Run Unit tests
-        run: ./gradlew testDebugUnitTest --stacktrace
+        run: bash ./gradlew testDebugUnitTest --stacktrace
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
