@@ -29,12 +29,12 @@ allprojects {
 
 subprojects {
 
-        plugins.apply("org.jetbrains.dokka")
-        plugins.apply("com.diffplug.spotless")
+    plugins.apply("org.jetbrains.dokka")
+    plugins.apply("com.diffplug.spotless")
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
-            target ("**/*.kt")
+            target("**/*.kt")
             targetExclude("$buildDir/**/*.kt")
             targetExclude("bin/**/*.kt")
 
@@ -53,5 +53,12 @@ subprojects {
             //noAndroidSdkLink.set(true)
             suppressInheritedMembers.set(true)
         }
+
+        pluginsMapConfiguration.set(
+            mapOf(
+                "org.jetbrains.dokka.base.DokkaBase"
+                        to """{ "separateInheritedMembers": true }"""
+            )
+        )
     }
 }
