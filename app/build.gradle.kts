@@ -55,10 +55,6 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
 
-    packagingOptions {
-        pickFirst("META-INF/*")
-    }
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }

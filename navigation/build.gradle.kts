@@ -34,6 +34,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -47,8 +52,8 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
 
-     packagingOptions {
-         pickFirst ("META-INF/*")
+    packagingOptions {
+        exclude ("META-INF/*")
     }
 }
 
