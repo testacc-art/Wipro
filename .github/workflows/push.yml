@@ -35,6 +35,9 @@ jobs:
             ~/.gradle/caches/build-cache-*
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Run Unit tests
         run: ./gradlew testDebugUnitTest --stacktrace
 
