@@ -66,4 +66,5 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
+          emulator-build: 6110076
           script: ./gradlew connectedCheck --stacktrace
