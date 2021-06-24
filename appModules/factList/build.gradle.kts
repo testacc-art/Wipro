@@ -119,7 +119,7 @@ dependencies {
     testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
-    debugImplementation(Libs.Coroutines.coroutineTest) {
+    testImplementation(Libs.Coroutines.coroutineTest) {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
     }
 
@@ -147,4 +147,8 @@ dependencies {
 
     // OkHttp Idling Resource
     androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
+
+    androidTestImplementation(Libs.Coroutines.coroutineTest) {
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-debug")
+    }
 }
