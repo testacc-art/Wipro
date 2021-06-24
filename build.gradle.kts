@@ -50,15 +50,8 @@ subprojects {
 
     tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
         dokkaSourceSets.configureEach {
-            //noAndroidSdkLink.set(true)
+            noAndroidSdkLink.set(true)
             suppressInheritedMembers.set(true)
         }
-
-        pluginsMapConfiguration.set(
-            mapOf(
-                "org.jetbrains.dokka.base.DokkaBase"
-                        to """{ "separateInheritedMembers": true }"""
-            )
-        )
     }
 }
