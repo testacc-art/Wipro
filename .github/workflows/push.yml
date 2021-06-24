@@ -39,7 +39,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run Unit tests
-        run: ./gradlew test --stacktrace
+        run: ./gradlew test spotlessCheck --stacktrace
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
