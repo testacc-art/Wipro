@@ -1,3 +1,19 @@
+/*
+ * Copyright 2021 Vikram LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package reprator.wipro.base_android.extensions
 
 import android.app.Activity
@@ -16,7 +32,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
-import java.util.*
+import java.util.Locale
 
 inline fun <reified T : Context> Context.findBaseContext(): T? {
     var ctx: Context? = this
@@ -72,7 +88,6 @@ fun Context.getMergeStringResource(
     return String.format(Locale.getDefault(), getString(stringResourceId), *totalStringArray)
 }
 
-
 fun Context.goToSettings() {
     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")).apply {
         addCategory(Intent.CATEGORY_DEFAULT)
@@ -85,7 +100,6 @@ fun Context.goToSettings() {
 fun Context.color(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 fun Context.integer(@IntegerRes integer: Int) = resources.getInteger(integer)
 
-
 fun Context.shortToast(msg: String) = Toast.makeText(
     this,
     msg,
@@ -93,7 +107,9 @@ fun Context.shortToast(msg: String) = Toast.makeText(
 ).show()
 
 fun Context.singleButtonDialog(
-    message: String, title: String = "", buttonName: String = "OK",
+    message: String,
+    title: String = "",
+    buttonName: String = "OK",
     buttonCallBack: () -> Unit = {}
 ) {
     val dialogBuilder = AlertDialog.Builder(this)
@@ -111,7 +127,9 @@ fun Context.singleButtonDialog(
 }
 
 fun Context.twoButtonDialog(
-    message: String, title: String = "", positiveButtonName: String = "OK",
+    message: String,
+    title: String = "",
+    positiveButtonName: String = "OK",
     negativeButtonName: String = "Cancel",
     positiveButtonCallBack: () -> Unit = {},
     negativeButtonCallBack: () -> Unit = {}

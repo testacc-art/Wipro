@@ -9,6 +9,13 @@ interface FactListNavigator  {
 
 }
 
+/*
+* interface to handle back button
+* */
 interface BackNavigator {
+
+    /**
+     * @param navController The navcontroller is provided by respective activity or fragment
+     */
     fun navigateToBack(navController: NavController)
 }

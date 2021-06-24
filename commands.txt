@@ -1,0 +1,28 @@
+To list all available tasks:
+	a) gradlew tasks
+	b) .gradlew tasks
+	c) ./gradlew tasks
+	d) .\gradlew tasks
+
+Dokka Command:
+	dokkaGfm - Generates documentation in GitHub flavored markdown format
+	dokkaGfmCollector - Generates documentation merging all subprojects 'dokkaGfm' tasks into one virtual module
+	dokkaGfmMultiModule - Runs all subprojects 'dokkaGfm' tasks and generates module navigation page
+	dokkaGfmPartial - Generates documentation in GitHub flavored markdown format
+	dokkaHtml - Generates documentation in 'html' format
+	dokkaHtmlCollector - Generates documentation merging all subprojects 'dokkaHtml' tasks into one virtual module
+	dokkaHtmlMultiModule - Runs all subprojects 'dokkaHtml' tasks and generates module navigation page
+	dokkaHtmlPartial - Generates documentation in 'html' format
+	dokkaJavadoc - Generates documentation in 'javadoc' format
+	dokkaJavadocCollector - Generates documentation merging all subprojects 'dokkaJavadoc' tasks into one virtual module
+	dokkaJavadocPartial - Generates documentation in 'javadoc' format
+	dokkaJekyll - Generates documentation in Jekyll flavored markdown format
+	dokkaJekyllCollector - Generates documentation merging all subprojects 'dokkaJekyll' tasks into one virtual module
+	dokkaJekyllMultiModule - Runs all subprojects 'dokkaJekyll' tasks and generates module navigation page
+	dokkaJekyllPartial - Generates documentation in Jekyll flavored markdown format
+	javadoc - Generates Javadoc API documentation for the main source code.
+
+
+Reference Dokka:
+    1)https://kotlin.github.io/dokka/1.4.0/user_guide/gradle/usage/
+    2)https://kotlin.github.io/dokka/1.5.0/user_guide/gradle/usage/
