@@ -41,10 +41,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x .\gradlew
 
       - name: Run Unit tests
-        run: ./gradlew testDebugUnitTest --stacktrace
+        run: .\gradlew testDebugUnitTest --stacktrace
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
