@@ -7,6 +7,9 @@ on:
       - '!master'
       - '!release*'
 
+  # Allows you to run the workflow manually
+  workflow_dispatch:
+  
 jobs:
 
   unit-test:
@@ -61,6 +64,9 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
@@ -92,10 +98,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
-
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
 
       - name: run kaspresso tests
         uses: reactivecircus/android-emulator-runner@v2
