@@ -7,6 +7,9 @@ on:
       - '!master'
       - '!release*'
 
+  # Allows you to run the workflow manually
+  workflow_dispatch:
+
 jobs:
 
   unit-test:
@@ -60,6 +63,14 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+
+      - name: set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
