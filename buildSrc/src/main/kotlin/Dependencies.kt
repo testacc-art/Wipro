@@ -35,6 +35,7 @@ object Libs {
         const val spotless = "5.14.0"
         const val dokka = "1.4.32"
         const val ktlint = "0.40.0"
+        const val detekt = "1.17.1"
     }
 
     object Plugins {
@@ -51,6 +52,7 @@ object Libs {
         const val kotlinNavigation = "androidx.navigation.safeargs.kotlin"
         const val dokka = "org.jetbrains.dokka"
         const val spotless = "com.diffplug.spotless"
+        const val detekt = "io.gitlab.arturbosch.detekt"
     }
 
     const val inject = "javax.inject:javax.inject:1"

@@ -3,6 +3,9 @@ plugins {
 
     id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
+
+    id(Libs.Plugins.detekt) version Libs.Versions.detekt
+
 }
 
 buildscript {
@@ -29,6 +32,8 @@ allprojects {
 
 subprojects {
 
+    plugins.apply(Libs.Plugins.detekt)
+
     plugins.apply(Libs.Plugins.dokka)
     plugins.apply(Libs.Plugins.spotless)
 
@@ -52,6 +57,16 @@ subprojects {
         dokkaSourceSets.configureEach {
             noAndroidSdkLink.set(true)
             suppressInheritedMembers.set(true)
+        }
+    }
+
+    detekt {
+        config = rootProject.files("config/detekt/detekt.yml")
+        reports {
+            html {
+                enabled = true
+                destination = file("build/reports/detekt.html")
+            }
         }
     }
 }
