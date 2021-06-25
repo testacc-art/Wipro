@@ -82,9 +82,9 @@ fun Context.getMergeStringResource(
     @StringRes vararg stringArray: Int
 ): String {
     val totalStringArray = arrayOfNulls<String>(stringArray.size)
-    for (i in stringArray.indices)
+    for (i in stringArray.indices) {
         totalStringArray[i] = getString(stringArray[i])
-
+    }
     return String.format(Locale.getDefault(), getString(stringResourceId), *totalStringArray)
 }
 

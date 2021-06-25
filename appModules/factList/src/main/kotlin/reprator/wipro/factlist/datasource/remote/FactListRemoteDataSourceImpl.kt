@@ -41,7 +41,7 @@ class FactListRemoteDataSourceImpl @Inject constructor(
                 is AppError -> {
                     AppError(message = data.message, throwable = data.throwable)
                 }
-                else -> throw IllegalArgumentException()
+                else -> throw IllegalArgumentException("Illegal State")
             }
         }
 
