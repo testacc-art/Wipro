@@ -93,6 +93,10 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: run kaspresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
