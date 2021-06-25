@@ -103,19 +103,18 @@ class FactListKaspressoTest : TestCase() {
                                 isDisplayed()
                             }
                         }
-                        flakySafely(timeoutMs = 5000) {
-                            scrollToEnd()
 
-                            lastChild<FactListKaspressoScreen.Item> {
-                                title {
-                                    hasText("Last Item")
-                                }
-                                description {
-                                    hasText("Last Description")
-                                }
-                                image {
-                                    isDisplayed()
-                                }
+                        scrollToEnd()
+
+                        lastChild<FactListKaspressoScreen.Item> {
+                            title {
+                                hasText("Last Item")
+                            }
+                            description {
+                                hasText("Last Description")
+                            }
+                            image {
+                                isDisplayed()
                             }
                         }
                     }
@@ -148,11 +147,9 @@ class FactListKaspressoTest : TestCase() {
             step("2. verify error with snackbar") {
 
                 FactListKaspressoScreen {
-                    flakySafely(timeoutMs = 7000) {
-                        snackbar {
-                            isDisplayed()
-                            text.hasText("timeout")
-                        }
+                    snackbar {
+                        isDisplayed()
+                        text.hasText("timeout")
                     }
                 }
             }
@@ -185,10 +182,8 @@ class FactListKaspressoTest : TestCase() {
 
                 FactListKaspressoScreen {
                     factList {
-                        flakySafely(timeoutMs = 7000) {
-                            hasSize(TOTAL_ITEM)
-                            isDisplayed()
-                        }
+                        hasSize(TOTAL_ITEM)
+                        isDisplayed()
                     }
                 }
             }
