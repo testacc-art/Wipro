@@ -103,18 +103,19 @@ class FactListKaspressoTest : TestCase() {
                                 isDisplayed()
                             }
                         }
+                        flakySafely(timeoutMs = 5000) {
+                            scrollToEnd()
 
-                        scrollToEnd()
-
-                        lastChild<FactListKaspressoScreen.Item> {
-                            title {
-                                hasText("Last Item")
-                            }
-                            description {
-                                hasText("Last Description")
-                            }
-                            image {
-                                isDisplayed()
+                            lastChild<FactListKaspressoScreen.Item> {
+                                title {
+                                    hasText("Last Item")
+                                }
+                                description {
+                                    hasText("Last Description")
+                                }
+                                image {
+                                    isDisplayed()
+                                }
                             }
                         }
                     }
@@ -147,9 +148,11 @@ class FactListKaspressoTest : TestCase() {
             step("2. verify error with snackbar") {
 
                 FactListKaspressoScreen {
-                    snackbar {
-                        isDisplayed()
-                        text.hasText("timeout")
+                    flakySafely(timeoutMs = 7000) {
+                        snackbar {
+                            isDisplayed()
+                            text.hasText("timeout")
+                        }
                     }
                 }
             }
@@ -182,8 +185,10 @@ class FactListKaspressoTest : TestCase() {
 
                 FactListKaspressoScreen {
                     factList {
-                        hasSize(TOTAL_ITEM)
-                        isDisplayed()
+                        flakySafely(timeoutMs = 7000) {
+                            hasSize(TOTAL_ITEM)
+                            isDisplayed()
+                        }
                     }
                 }
             }
