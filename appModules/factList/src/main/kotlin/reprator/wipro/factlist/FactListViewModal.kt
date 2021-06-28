@@ -122,7 +122,7 @@ class FactListViewModal @Inject constructor(
                             is AppError -> {
                                 blockError(it.message ?: it.throwable?.message ?: "")
                             }
-                            else -> throw IllegalArgumentException()
+                            else -> throw IllegalArgumentException("Illegal State")
                         }
                     }
                 }

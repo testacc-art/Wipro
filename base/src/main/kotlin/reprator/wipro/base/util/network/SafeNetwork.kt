@@ -26,7 +26,6 @@ suspend fun <T : Any> safeApiCall(
     return try {
         call()
     } catch (e: Exception) {
-        println(e.printStackTrace())
         AppError(message = errorMessage ?: e.message)
     }
 }

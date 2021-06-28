@@ -3,6 +3,9 @@ plugins {
 
     id(Libs.Plugins.dokka) version (Libs.Versions.dokka)
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
+
+    id(Libs.Plugins.detekt) version Libs.Versions.detekt
+
 }
 
 buildscript {
@@ -29,6 +32,8 @@ allprojects {
 
 subprojects {
 
+    plugins.apply(Libs.Plugins.detekt)
+
     plugins.apply(Libs.Plugins.dokka)
     plugins.apply(Libs.Plugins.spotless)
 
@@ -39,7 +44,7 @@ subprojects {
             targetExclude("bin/**/*.kt")
 
             ktlint(Libs.Versions.ktlint)
-            licenseHeaderFile("${project.rootProject.projectDir}/spotless/copyright.kt")
+            licenseHeaderFile("${project.rootProject.projectDir}/config/spotless/copyright.kt")
         }
 
         kotlinGradle {
@@ -54,4 +59,19 @@ subprojects {
             suppressInheritedMembers.set(true)
         }
     }
+
+    detekt {
+        config = rootProject.files("$rootDir/config/detekt/detekt.yml")
+        reports {
+            html {
+                enabled = true
+                destination = file("$rootDir/reports/detekt/detekt.html")
+            }
+        }
+    }
+}
+
+/*Report Generation*/
+tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
+    outputDirectory.set(file("$rootDir/reports/dokka"))
 }

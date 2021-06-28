@@ -4,7 +4,7 @@ To list all available tasks:
 	c) ./gradlew tasks
 	d) .\gradlew tasks
 
-Dokka Command:
+Dokka Command(Document Generation):
 	    dokkaGfm - Generates documentation in GitHub flavored markdown format
 	    dokkaGfmCollector - Generates documentation merging all subprojects 'dokkaGfm' tasks into one virtual module
 	    dokkaGfmMultiModule - Runs all subprojects 'dokkaGfm' tasks and generates module navigation page
@@ -29,6 +29,33 @@ Dokka Command:
         1)https://kotlin.github.io/dokka/1.4.0/user_guide/gradle/usage/
         2)https://kotlin.github.io/dokka/1.5.0/user_guide/gradle/usage/
 
-Spotless:
+
+Spotless(Code Formatting and analysis):
     To check: .\gradlew spotlessCheck
     To Apply: .\gradlew spotlessApply
+
+
+Detekt(Static Code Analysis)
+
+    Detekt Commands:
+        detektBaseline - Creates a detekt baseline on the given --baseline path.
+        detektBaselineDebug - EXPERIMENTAL: Creates detekt baseline for debug classes with type resolution
+        detektBaselineDebugAndroidTest - EXPERIMENTAL: Creates detekt baseline for debugAndroidTest classes with type resolution
+        detektBaselineDebugUnitTest - EXPERIMENTAL: Creates detekt baseline for debugUnitTest classes with type resolution
+        detektBaselineMain - EXPERIMENTAL: Creates detekt baseline for main classes with type resolution
+        detektBaselineRelease - EXPERIMENTAL: Creates detekt baseline for release classes with type resolution
+        detektBaselineReleaseUnitTest - EXPERIMENTAL: Creates detekt baseline for releaseUnitTest classes with type resolution
+        detektBaselineTest - EXPERIMENTAL: Creates detekt baseline for test classes with type resolution
+        detektDebug - EXPERIMENTAL: Run detekt analysis for debug classes with type resolution
+        detektDebugAndroidTest - EXPERIMENTAL: Run detekt analysis for debugAndroidTest classes with type resolution
+        detektDebugUnitTest - EXPERIMENTAL: Run detekt analysis for debugUnitTest classes with type resolution
+        detektGenerateConfig - Generate a detekt configuration file inside your project.
+        detektMain - EXPERIMENTAL: Run detekt analysis for main classes with type resolution
+        detektRelease - EXPERIMENTAL: Run detekt analysis for release classes with type resolution
+        detektReleaseUnitTest - EXPERIMENTAL: Run detekt analysis for releaseUnitTest classes with type resolution
+        detektTest - EXPERIMENTAL: Run detekt analysis for test classes with type resolution
+
+    CodeAnalysis:
+        .\gradlew detekt
+    Generate Default .yml file:
+        .\gradlew detektGenerateConfig

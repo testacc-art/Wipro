@@ -42,11 +42,6 @@ android {
         map { it.java.srcDirs("src/${it.name}/kotlin") }
     }
 
-    testOptions {
-        unitTests.isReturnDefaultValues = true
-        unitTests.isIncludeAndroidResources = true
-    }
-
     buildTypes {
 
         getByName("release") {

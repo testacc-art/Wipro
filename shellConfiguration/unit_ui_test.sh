@@ -1,0 +1,1 @@
+./gradlew clean spotlessCheck detekt test connectedCheck
