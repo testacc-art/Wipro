@@ -10,6 +10,7 @@ on:
   # Allows you to run the workflow manually
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
 
@@ -25,7 +26,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: 1.8
+          java-version: 16
       - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
@@ -51,10 +52,12 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: set up JDK 1.8
+      - name: set up JDK 11
         uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          distribution: 'adopt'
+          java-version: 11
+
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -87,10 +90,10 @@ jobs:
     needs: check
 
     name: Run UI Tests
-    timeout-minutes: 20
-
     runs-on: macos-latest
+    timeout-minutes: 20
     strategy:
+      fail-fast: true
       matrix:
         api-level: [ 21, 23, 29]
 
@@ -101,7 +104,9 @@ jobs:
       - name: set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          distribution: 'adopt'
+          java-version: 11
+
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
