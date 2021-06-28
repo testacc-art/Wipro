@@ -172,8 +172,10 @@ class FactListKaspressoTest : TestCase() {
                     mockWebServer.dispatcher = dispatcherWithCustomBody()
 
                     errorRetry {
-                        isDisplayed()
-                        click()
+                        flakySafely(timeoutMs = 7000) {
+                            isDisplayed()
+                            click()
+                        }
                     }
                 }
             }
