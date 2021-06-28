@@ -44,7 +44,7 @@ subprojects {
             targetExclude("bin/**/*.kt")
 
             ktlint(Libs.Versions.ktlint)
-            licenseHeaderFile("${project.rootProject.projectDir}/spotless/copyright.kt")
+            licenseHeaderFile("${project.rootProject.projectDir}/config/spotless/copyright.kt")
         }
 
         kotlinGradle {
@@ -61,12 +61,17 @@ subprojects {
     }
 
     detekt {
-        config = rootProject.files("config/detekt/detekt.yml")
+        config = rootProject.files("$rootDir/config/detekt/detekt.yml")
         reports {
             html {
                 enabled = true
-                destination = file("build/reports/detekt.html")
+                destination = file("$rootDir/reports/detekt/detekt.html")
             }
         }
     }
+}
+
+/*Report Generation*/
+tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
+    outputDirectory.set(file("$rootDir/reports/dokka"))
 }
