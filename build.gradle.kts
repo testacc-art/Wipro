@@ -32,9 +32,6 @@ allprojects {
 
 subprojects {
 
-    plugins.apply(Libs.Plugins.detekt)
-
-    plugins.apply(Libs.Plugins.dokka)
     plugins.apply(Libs.Plugins.spotless)
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
@@ -53,6 +50,8 @@ subprojects {
         }
     }
 
+    plugins.apply(Libs.Plugins.dokka)
+
     tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
         dokkaSourceSets.configureEach {
             noAndroidSdkLink.set(true)
@@ -60,8 +59,11 @@ subprojects {
         }
     }
 
+    plugins.apply(Libs.Plugins.detekt)
+
     detekt {
-        config = rootProject.files("$rootDir/config/detekt/detekt.yml")
+        config = rootProject.files("${rootProject.projectDir}/config/detekt/detekt.yml")
+        baseline = file("${rootProject.projectDir}/config/detekt/baseline.xml")
         reports {
             html {
                 enabled = true
@@ -71,7 +73,27 @@ subprojects {
     }
 }
 
+val detektProjectBaseline by tasks.registering(io.gitlab.arturbosch.detekt.DetektCreateBaselineTask::class) {
+    description = "Overrides current baseline."
+    buildUponDefaultConfig.set(true)
+    ignoreFailures.set(false)
+    parallel.set(true)
+    setSource(files(rootDir))
+    config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
+    baseline.set(file("$rootDir/config/detekt/baseline.xml"))
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("**/resources/**")
+    exclude("**/build/**")
+}
+
+
 /*Report Generation*/
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
     outputDirectory.set(file("$rootDir/reports/dokka"))
+}
+
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.17.1")
 }
