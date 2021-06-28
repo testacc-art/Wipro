@@ -41,6 +41,12 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Run Spotless
+        run: ./gradlew spotlessCheck
+
+      - name: Run DeteKT code formatter
+        run: ./gradlew detekt
+
       - name: Run Unit tests
         run: ./gradlew test spotlessCheck --stacktrace
 
@@ -53,6 +59,7 @@ jobs:
 
 
   instrumentation-test:
+    needs: unit-test
 
     name: Run UI Tests
     runs-on: macos-latest
