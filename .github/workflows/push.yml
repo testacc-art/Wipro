@@ -13,9 +13,11 @@ on:
 jobs:
 
   check:
-    name: Check
+    name: Static Checks
+
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v2
       - uses: gradle/wrapper-validation-action@v1
@@ -43,6 +45,7 @@ jobs:
         run: ./gradlew apiCheck
 
   unit-test:
+
     needs: check
 
     name: Run Unit Tests
@@ -73,7 +76,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run Unit tests
-        run: ./gradlew test --stacktrace
+        run: ./gradlew test spotlessCheck --stacktrace
 
       - name: Upload test report
         uses: actions/upload-artifact@v2
@@ -85,34 +88,34 @@ jobs:
 
   instrumentation-test:
     needs: check
-      name: Instrumentation tests
-      runs-on: macOS-latest
-      timeout-minutes: 20
-      strategy:
-        fail-fast: true
-        matrix:
-          api-level: [ 21, 25, 29 ]
-      steps:
-        - uses: actions/checkout@v2
-        - uses: gradle/wrapper-validation-action@v1
-        - uses: actions/setup-java@v2
-          with:
-            distribution: 'adopt'
-            java-version: 11
+    name: Instrumentation tests
+    runs-on: macOS-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        api-level: [ 21, 25, 29 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gradle/wrapper-validation-action@v1
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 11
 
-        # Restore the cache.
-        # Intentionally don't set 'restore-keys' so the cache never contains redundant dependencies.
-        - uses: actions/cache@v2
-          with:
-            path: ~/.gradle/caches
-            key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Dependencies.kt') }}
+      # Restore the cache.
+      # Intentionally don't set 'restore-keys' so the cache never contains redundant dependencies.
+      - uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Dependencies.kt') }}
 
-        - name: Make gradlew executable
-          run: chmod +x ./gradlew
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-        - name: Instrumentation tests
-          uses: reactivecircus/android-emulator-runner@v2
-          with:
-            api-level: ${{ matrix.api-level }}
-            arch: x86
-            script: ./gradlew connectedDebugAndroidTest
+      - name: Instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86
+          script: ./gradlew connectedDebugAndroidTest
