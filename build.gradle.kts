@@ -71,6 +71,22 @@ subprojects {
             }
         }
     }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            // Treat all Kotlin warnings as errors
+            allWarningsAsErrors = true
+            freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+
+            // Enable experimental coroutines APIs, including Flow
+            freeCompilerArgs = listOf("-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
+            freeCompilerArgs = listOf("-Xopt-in=kotlinx.coroutines.FlowPreview")
+            freeCompilerArgs = listOf("-Xopt-in=kotlin.Experimental")
+
+            // Set JVM target to 1.8
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+        }
+    }
 }
 
 val detektProjectBaseline by tasks.registering(io.gitlab.arturbosch.detekt.DetektCreateBaselineTask::class) {
