@@ -5,7 +5,6 @@ plugins {
     id(Libs.Plugins.spotless) version Libs.Versions.spotless
 
     id(Libs.Plugins.detekt) version Libs.Versions.detekt
-
 }
 
 buildscript {

@@ -54,7 +54,7 @@ class FactListKaspressoTest : TestCase() {
     fun setUp() {
         hiltRule.inject()
 
-        mockWebServer.start(8080)
+        mockWebServer.start()
 
         IdlingRegistry.getInstance().register(okHttp3IdlingResource)
 

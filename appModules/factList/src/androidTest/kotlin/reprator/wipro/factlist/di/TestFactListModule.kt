@@ -53,7 +53,7 @@ class TestFactListModule {
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://localhost:0")
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()
