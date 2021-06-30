@@ -45,7 +45,8 @@ class FactListKaspressoTest : TestCase() {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
-    private val mockWebServer = MockWebServer()
+    @Inject
+    lateinit var mockWebServer: MockWebServer
 
     @Inject
     lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
@@ -54,7 +55,7 @@ class FactListKaspressoTest : TestCase() {
     fun setUp() {
         hiltRule.inject()
 
-        mockWebServer.start(8080)
+        mockWebServer.start()
 
         IdlingRegistry.getInstance().register(okHttp3IdlingResource)
 

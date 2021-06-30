@@ -22,6 +22,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -33,9 +34,9 @@ class TestFactListModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(2, TimeUnit.SECONDS)
-            .writeTimeout(2, TimeUnit.SECONDS)
-            .readTimeout(2, TimeUnit.SECONDS)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
             .build()
     }
 
@@ -50,12 +51,18 @@ class TestFactListModule {
     @Provides
     fun provideRetrofit(
         converterFactory: JacksonConverterFactory,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
+        mockWebServer: MockWebServer
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080")
+            .baseUrl(mockWebServer.url("/"))
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()
+    }
+
+    @Provides
+    fun provideMockWebServer(): MockWebServer {
+        return MockWebServer()
     }
 }
