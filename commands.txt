@@ -4,6 +4,16 @@ To list all available tasks:
 	c) ./gradlew tasks
 	d) .\gradlew tasks
 
+To generate apk:
+    gradlew --stacktrace assembleDebug
+
+To Generate Dependency for all modules:
+    .\gradlew allDependencies
+
+To Generate Dependency for all modules in a txt file:
+    .\gradlew allDependencies > output.txt
+
+
 Dokka Command(Document Generation):
 	    dokkaGfm - Generates documentation in GitHub flavored markdown format
 	    dokkaGfmCollector - Generates documentation merging all subprojects 'dokkaGfm' tasks into one virtual module

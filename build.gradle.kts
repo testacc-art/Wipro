@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.diagnostics.internal.dependencies.AsciiDependencyReportRenderer
+
 plugins {
     kotlin(Libs.Plugins.kotlinJVM) version Libs.Versions.kotlin
 
@@ -77,3 +79,12 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach 
 }
 
 apply(from = file("gradle/dependencyGraph.gradle"))
+
+project.rootProject.allprojects {
+    apply(plugin = "project-report")
+
+    this.task("allDependencies", DependencyReportTask::class) {
+        evaluationDependsOnChildren()
+        this.setRenderer(AsciiDependencyReportRenderer())
+    }
+}
