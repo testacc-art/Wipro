@@ -26,6 +26,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import reprator.wipro.factlist.CustomMockServer
 import reprator.wipro.factlist.Factlist
 import reprator.wipro.factlist.dispatcherWithCustomBody
 import reprator.wipro.factlist.dispatcherWithEmptyBody
@@ -45,16 +46,16 @@ class FactListKaspressoTest : TestCase() {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
-    private val mockWebServer = MockWebServer()
+    private lateinit var mockWebServer: MockWebServer
 
     @Inject
     lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
     @Before
     fun setUp() {
-        hiltRule.inject()
+        mockWebServer = CustomMockServer().mockWebServer
 
-        mockWebServer.start(8080)
+        hiltRule.inject()
 
         IdlingRegistry.getInstance().register(okHttp3IdlingResource)
 
