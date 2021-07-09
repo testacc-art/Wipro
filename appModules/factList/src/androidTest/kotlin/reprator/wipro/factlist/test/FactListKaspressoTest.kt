@@ -26,10 +26,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import reprator.wipro.factlist.Factlist
-import reprator.wipro.factlist.dispatcherWithCustomBody
-import reprator.wipro.factlist.dispatcherWithEmptyBody
-import reprator.wipro.factlist.dispatcherWithErrorTimeOut
+import reprator.wipro.factlist.*
 import reprator.wipro.factlist.screen.FactListKaspressoScreen
 import reprator.wipro.factlist.util.launchFragmentInHiltContainer
 import javax.inject.Inject
@@ -45,17 +42,16 @@ class FactListKaspressoTest : TestCase() {
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
 
-    @Inject
-    lateinit var mockWebServer: MockWebServer
+    private lateinit var mockWebServer: MockWebServer
 
     @Inject
     lateinit var okHttp3IdlingResource: OkHttp3IdlingResource
 
     @Before
     fun setUp() {
-        hiltRule.inject()
+        mockWebServer = CustomMockServer.mockWebServer
 
-        mockWebServer.start()
+        hiltRule.inject()
 
         IdlingRegistry.getInstance().register(okHttp3IdlingResource)
 
@@ -66,7 +62,7 @@ class FactListKaspressoTest : TestCase() {
 
     @After
     fun cleanup() {
-        mockWebServer.close()
+        //mockWebServer.close()
         IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
     }
 

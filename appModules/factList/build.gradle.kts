@@ -138,6 +138,7 @@ dependencies {
     androidTestImplementation(Libs.TestDependencies.UITest.kaspresso)
 
     androidTestImplementation(Libs.OkHttp.mockWebServer)
+    androidTestImplementation(Libs.OkHttp.loggingInterceptor)
 
     // OkHttp Idling Resource
     androidTestImplementation(Libs.TestDependencies.UITest.okhttpIdlingResource)
