@@ -3,9 +3,12 @@ package reprator.wipro.factlist
 import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockWebServer
 
-object CustomMockServer {
+class CustomMockServer {
+
+    companion object {
+        lateinit var httpUrl: HttpUrl
+    }
     val mockWebServer = MockWebServer()
-    val httpUrl: HttpUrl
 
     init {
         mockWebServer.start()

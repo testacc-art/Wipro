@@ -49,7 +49,7 @@ class FactListKaspressoTest : TestCase() {
 
     @Before
     fun setUp() {
-        mockWebServer = CustomMockServer.mockWebServer
+        mockWebServer = CustomMockServer().mockWebServer
 
         hiltRule.inject()
 
@@ -62,7 +62,7 @@ class FactListKaspressoTest : TestCase() {
 
     @After
     fun cleanup() {
-        //mockWebServer.close()
+        mockWebServer.close()
         IdlingRegistry.getInstance().unregister(okHttp3IdlingResource)
     }
 
