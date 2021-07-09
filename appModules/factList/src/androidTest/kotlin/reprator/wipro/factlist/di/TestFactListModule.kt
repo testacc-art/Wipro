@@ -68,7 +68,8 @@ class TestFactListModule {
     @Provides
     fun provideRetrofit(
         converterFactory: JacksonConverterFactory,
-        okHttpClient: OkHttpClient): Retrofit {
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(CustomMockServer.httpUrl)
             .client(okHttpClient)
