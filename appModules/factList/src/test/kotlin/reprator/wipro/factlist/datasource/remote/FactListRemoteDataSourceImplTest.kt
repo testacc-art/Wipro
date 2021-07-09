@@ -23,10 +23,11 @@ import io.mockk.coEvery
 import io.mockk.coVerifySequence
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import reprator.wipro.base.useCases.AppError
@@ -41,6 +42,7 @@ import reprator.wipro.factlist.util.MainCoroutineRule
 import retrofit2.HttpException
 import retrofit2.Response
 
+@ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class FactListRemoteDataSourceImplTest {
 
@@ -60,7 +62,7 @@ class FactListRemoteDataSourceImplTest {
 
     private lateinit var factListRemoteDataSource: FactListRemoteDataSource
 
-    @Before
+    @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, true)
 

@@ -18,13 +18,15 @@ package reprator.wipro.factlist.datasource.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import reprator.wipro.base.util.network.bodyOrThrow
@@ -34,6 +36,7 @@ import retrofit2.Retrofit
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
+@ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class FactListApiServiceTest {
 
@@ -55,7 +58,7 @@ class FactListApiServiceTest {
 
     private lateinit var mockWebServer: MockWebServer
 
-    @Before
+    @BeforeEach
     fun createService() {
         mockWebServer = MockWebServer()
 
@@ -73,7 +76,7 @@ class FactListApiServiceTest {
             .create(FactListApiService::class.java)
     }
 
-    @After
+    @AfterEach
     fun stopService() {
         mockWebServer.shutdown()
     }
@@ -118,10 +121,12 @@ class FactListApiServiceTest {
         Truth.assertThat(request.method).isEqualTo("GET")
     }
 
-    @Test(expected = SocketTimeoutException::class)
+    @Test
     fun `Timeout example`(): Unit = runBlocking {
         mockWebServer.dispatcher = dispatcherWithErrorTimeOut()
 
-        service.factList().bodyOrThrow()
+        assertThrows<SocketTimeoutException> {
+            service.factList().bodyOrThrow()
+        }
     }
 }

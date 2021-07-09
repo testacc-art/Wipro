@@ -30,7 +30,7 @@ object AppModules {
 
 object Libs {
 
-    object Versions{
+    object Versions {
         const val kotlin = "1.5.10"
         const val spotless = "5.14.0"
         const val dokka = "1.4.32"
@@ -205,6 +205,23 @@ object Libs {
     }
 
     object TestDependencies {
+        object Junit5 {
+            const val classPath = "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
+            const val plugin = "de.mannodermaus.android-junit5"
+
+            private const val version = "5.7.1"
+
+            // (Required) Writing and executing Unit Tests on the JUnit Platform
+            const val jupiter = "org.junit.jupiter:junit-jupiter-api:$version"
+            const val runtime = "org.junit.jupiter:junit-jupiter-engine:$version"
+
+            // (Optional) If you need "Parameterized Tests"
+            const val parameterized = "org.junit.jupiter:junit-jupiter-params:$version"
+
+            // (Optional) If you also have JUnit 4-based tests
+            const val junit4Runtime = "org.junit.vintage:junit-vintage-engine:$version"
+        }
+
         object Mockk {
             private const val version = "1.10.5"
             const val unitTest = "io.mockk:mockk:$version"
@@ -242,9 +259,9 @@ object Libs {
             const val kaspresso = "com.kaspersky.android-components:kaspresso:1.2.1"
             const val fragmentRuntime = "androidx.lifecycle:lifecycle-runtime-testing:2.3.1"
             const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.4"
-            const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+            const val okhttpIdlingResource =
+                "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
             const val dexmaker = "com.linkedin.dexmaker:dexmaker:2.28.1"
-
         }
     }
 }

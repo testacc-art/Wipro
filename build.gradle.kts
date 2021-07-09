@@ -20,6 +20,7 @@ buildscript {
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.AndroidX.Navigation.navigationPlugin)
         classpath(Libs.DaggerHilt.classPath)
+        classpath(Libs.TestDependencies.Junit5.classPath)
     }
 }
 

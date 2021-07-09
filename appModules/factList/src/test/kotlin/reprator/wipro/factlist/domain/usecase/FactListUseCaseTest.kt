@@ -25,9 +25,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import reprator.wipro.base.useCases.AppError
@@ -53,7 +53,7 @@ class FactListUseCaseTest {
 
     lateinit var factListUseCase: FactListUseCase
 
-    @Before
+    @BeforeEach
     fun setup() {
         MockKAnnotations.init(this, true)
 

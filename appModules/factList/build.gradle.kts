@@ -4,6 +4,7 @@ plugins {
     kotlin(Libs.Plugins.kotlinKapt)
     id(Libs.Plugins.kotlinNavigation)
     id(Libs.Plugins.kaptDagger)
+    id(Libs.TestDependencies.Junit5.plugin)
 }
 
 android {
@@ -105,12 +106,12 @@ dependencies {
     /*
     *  Unit Testing
     * */
+    testImplementation(Libs.TestDependencies.Junit5.jupiter)
+    testRuntimeOnly(Libs.TestDependencies.Junit5.runtime)
+
     testImplementation(Libs.TestDependencies.AndroidXTest.truth)
     testImplementation(Libs.TestDependencies.core)
     testImplementation(Libs.OkHttp.mockWebServer)
-    testImplementation(Libs.TestDependencies.jUnit)
-    testImplementation(Libs.TestDependencies.AndroidXTest.rules)
-    testImplementation(Libs.TestDependencies.AndroidXTest.runner)
     testImplementation(Libs.TestDependencies.Mockk.unitTest)
 
     testImplementation(Libs.Coroutines.coroutineTest) {
