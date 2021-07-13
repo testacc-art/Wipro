@@ -41,6 +41,9 @@ jobs:
       - name: Run Spotless
         run: ./gradlew spotlessCheck
 
+      - name: Run Build
+        run: ./gradlew build
+        
       - name: Run DeteKT code formatter
         run: ./gradlew detekt
 
