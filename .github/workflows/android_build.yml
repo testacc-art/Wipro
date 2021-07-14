@@ -27,7 +27,8 @@ jobs:
       - uses: gradle/wrapper-validation-action@v1
       
       - name: check cache
-        run: [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
+        run: |
+          [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
         
       - uses: KengoTODA/setup-java@introduce-cache
         with:
@@ -40,7 +41,8 @@ jobs:
 #           key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Library.kt') }}
       - name: check cache
         shell: bash
-        run: [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
+        run: |
+          [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
       
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -65,7 +67,8 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: check cache
-        run: [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
+        run: |
+          [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
       - name: set up JDK 11
         uses: actions/setup-java@v2
         with:
