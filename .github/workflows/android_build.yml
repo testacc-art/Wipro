@@ -39,6 +39,7 @@ jobs:
 #           path: ~/.gradle/caches
 #           key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Library.kt') }}
       - name: check cache
+        shell: bash
         run: [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
       
       - name: Make gradlew executable
