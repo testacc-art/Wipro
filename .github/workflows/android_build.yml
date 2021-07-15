@@ -31,6 +31,7 @@ jobs:
           [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
         
       - uses: KengoTODA/setup-java@introduce-cache
+        id: java
         with:
           distribution: 'adopt'
           java-version: 16
@@ -42,6 +43,7 @@ jobs:
       - name: check cache
         shell: bash
         run: |
+          echo {{ steps.java.outputs.path }}
           [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
       
       - name: Make gradlew executable
