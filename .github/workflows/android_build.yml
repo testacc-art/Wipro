@@ -43,7 +43,7 @@ jobs:
       - name: check cache
         shell: bash
         run: |
-          echo {{ steps.java.outputs.path }}
+          echo ${{ steps.java.outputs.path }}
           [ -d ~/.gradle/caches ] || echo "The gradle cache directory exists"
       
       - name: Make gradlew executable
